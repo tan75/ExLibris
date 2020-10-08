@@ -11,6 +11,10 @@ router.get("/add-book", (req, res, next) => {
 
 router.post("/book", (req, res, next) => {
   console.log("Got a post request");
+
+  for (let j = 0; j < 5; j++) {
+    console.log(j);
+  }
   res.redirect("/");
 });
 
