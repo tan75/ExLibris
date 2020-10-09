@@ -10,7 +10,7 @@ const libraryRoutes = require("./routes/library");
 // Parses the url body and calls next()
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(adminRoutes);
+app.use("/admin", adminRoutes);
 app.use(libraryRoutes);
 
 app.use((req, res) => {
