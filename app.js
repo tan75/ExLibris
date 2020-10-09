@@ -1,4 +1,3 @@
-const http = require("http");
 const bodyParser = require("body-parser");
 
 const express = require("express");
@@ -14,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(adminRoutes);
 app.use(libraryRoutes);
 
-app.use((req, res, next) => {
+app.use((req, res) => {
   res.send("<h1>Page Not Found</h1>");
 });
 
