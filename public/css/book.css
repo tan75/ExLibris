@@ -1,0 +1,25 @@
+.book-form {
+  width: 20rem;
+  max-width: 90%;
+  margin: auto;
+}
+
+.book-item {
+  width: 20rem;
+  max-width: 95%;
+}
+
+.book__title {
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.book__price {
+  text-align: center;
+  color: #3e00a1;
+  margin-bottom: 0.5rem;
+}
+
+.book__description {
+  text-align: center;
+}

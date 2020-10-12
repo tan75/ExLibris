@@ -1,10 +1,11 @@
 const path = require("path");
 
-const bodyParser = require("body-parser");
-
 const express = require("express");
 
 const app = express();
+
+const bodyParser = require("body-parser");
+app.use(express.static(path.join(__dirname, "public"))); // to serve static files like css files
 
 const adminRoutes = require("./routes/admin");
 const libraryRoutes = require("./routes/library");
