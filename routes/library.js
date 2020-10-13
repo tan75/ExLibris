@@ -1,13 +1,17 @@
-const path = require("path");
-
 const express = require("express");
 
-const rootDir = require("../util/path");
+const adminData = require("./admin");
 
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  res.sendFile(path.join(rootDir, "views", "library.html"));
+  const books = adminData.books;
+  res.render("library", {
+    bks: books,
+    pageTitle: "Library",
+    path: "/",
+    hasBooks: books.length > 0,
+  });
 });
 
 module.exports = router;
