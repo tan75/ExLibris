@@ -2,21 +2,12 @@ const express = require("express");
 
 const router = express.Router();
 
-const books = [];
+const booksController = require("../controllers/books");
 
 // /admin/add-book => GET
-router.get("/add-book", (req, res) => {
-  res.render("add-book", {
-    pageTitle: "Add Book",
-    path: "/admin/add-book",
-  });
-});
+router.get("/add-book", booksController.getAddBook);
 
 // /admin/add-book => POST
-router.post("/add-book", (req, res) => {
-  books.push({ title: req.body.title });
-  res.redirect("/");
-});
+router.post("/add-book", booksController.postAddBook);
 
-exports.routes = router;
-exports.books = books;
+module.exports = router;
