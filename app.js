@@ -10,6 +10,7 @@ app.set("views", "views");
 
 const adminRoutes = require("./routes/admin");
 const libraryRoutes = require("./routes/library");
+const errorController = require("./controllers/error");
 
 // Parses the url body and calls next()
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -17,9 +18,6 @@ app.use(express.static(path.join(__dirname, "public"))); // to serve static file
 
 app.use("/admin", adminRoutes);
 app.use(libraryRoutes);
-
-app.use((req, res) => {
-  res.status(404).sendFile(path.join(__dirname, "views", "404.html"));
-});
+app.use(errorController.get404);
 
 app.listen(3000);
