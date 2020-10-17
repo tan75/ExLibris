@@ -1,6 +1,15 @@
 const fs = require("fs");
 const path = require("path");
 
+const getBooksFromFile = (cb) => {
+  fs.readFile(p, (err, fileContent) => {
+    if (err) {
+      return cb([]);
+    }
+    cb(JSON.parse(fileContent));
+  });
+};
+
 const p = path.join(
   path.dirname(process.mainModule.filename),
   "data",
@@ -13,28 +22,15 @@ module.exports = class Book {
   }
 
   save() {
-    fs.readFile(p, (err, fileContent) => {
-      let books = [];
-      if (!err) {
-        books = JSON.parse(fileContent);
-      }
-
+    getBooksFromFile((books) => {
       books.push(this);
-      fs.writeFile(
-        p,
-        JSON.stringify(books, (err) => {
-          console.log(err);
-        })
-      );
+      fs.writeFile(p, JSON.stringify(books), (err) => {
+        console.log(err);
+      });
     });
   }
 
-  static fetchAll() {
-    fs.readFile(p, (err, fileContent) => {
-      if (err) {
-        return [];
-      }
-      return JSON.parse(fileContent);
-    });
+  static fetchAll(cb) {
+    getBooksFromFile(cb);
   }
 };

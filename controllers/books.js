@@ -14,10 +14,11 @@ exports.postAddBook = (req, res) => {
 };
 
 exports.getBooks = (req, res) => {
-  const books = Book.fetchAll();
-  res.render("library", {
-    bks: books,
-    pageTitle: "Library",
-    path: "/",
+  Book.fetchAll((books) => {
+    res.render("library", {
+      bks: books,
+      pageTitle: "Library",
+      path: "/",
+    });
   });
 };
