@@ -15,10 +15,10 @@ exports.postAddBook = (req, res) => {
 
 exports.getBooks = (req, res) => {
   Book.fetchAll((books) => {
-    res.render("library/book-list", {
+    res.render("admin/books", {
       bks: books,
-      pageTitle: "Library",
-      path: "/",
+      pageTitle: "Admin Books",
+      path: "/admin/books",
     });
   });
 };

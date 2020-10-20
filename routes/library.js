@@ -2,8 +2,12 @@ const express = require("express");
 
 const router = express.Router();
 
-const booksController = require("../controllers/books");
+const libraryController = require("../controllers/library");
 
-router.get("/", booksController.getBooks);
+router.get("/", libraryController.getIndex);
+
+router.get("/books", libraryController.getBooks);
+
+router.get("/report", libraryController.getReport);
 
 module.exports = router;

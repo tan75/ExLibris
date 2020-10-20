@@ -2,12 +2,14 @@ const express = require("express");
 
 const router = express.Router();
 
-const booksController = require("../controllers/books");
+const adminController = require("../controllers/admin");
 
 // /admin/add-book => GET
-router.get("/add-book", booksController.getAddBook);
+router.get("/add-book", adminController.getAddBook);
+
+router.get("/books", adminController.getBooks);
 
 // /admin/add-book => POST
-router.post("/add-book", booksController.postAddBook);
+router.post("/add-book", adminController.postAddBook);
 
 module.exports = router;
