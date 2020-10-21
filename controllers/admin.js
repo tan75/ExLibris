@@ -8,7 +8,12 @@ exports.getAddBook = (req, res) => {
 };
 
 exports.postAddBook = (req, res) => {
-  const book = new Book(req.body.title);
+  // coming from the view => the name attribute of input tag
+  const title = req.body.title;
+  const imageUrl = req.body.imageUrl;
+  const pages = req.body.pages;
+  const description = req.body.description;
+  const book = new Book(title, imageUrl, description, pages);
   book.save();
   res.redirect("/");
 };

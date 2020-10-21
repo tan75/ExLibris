@@ -17,8 +17,11 @@ const p = path.join(
 );
 
 module.exports = class Book {
-  constructor(t) {
-    this.title = t;
+  constructor(title, imageUrl, description, pages) {
+    this.title = title;
+    this.imageUrl = imageUrl;
+    this.description = description;
+    this.pages = pages;
   }
 
   save() {
