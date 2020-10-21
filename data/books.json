@@ -1,1 +1,8 @@
-[{"title":"yyy"},{"title":"yyy"},{"title":"yyy"}]
+[
+  {
+    "title": "JavaScript",
+    "imageUrl": "https://weknowyourdreams.com/images/book/book-04.jpg",
+    "description": "Good Parts",
+    "pages": "400"
+  }
+]
