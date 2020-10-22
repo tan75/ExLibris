@@ -20,6 +20,7 @@
               <p class="book__description"><%= book.description %></p>
             </div>
             <div class="card__actions">
+              <a href="/books/<%= book.id %>" class="btn">Details</a>
               <form action="/add-to-finished" method="POST">
                 <button class="btn">Add to Finished</button>
               </form>                           
