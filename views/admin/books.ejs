@@ -3,9 +3,34 @@
 </head>
 
 <body>
-   <%- include('../includes/navigation.ejs') %>
-<main>
-  <h1>Admin Books Coming Soon</h1>
-</main>
+  <%- include('../includes/navigation.ejs') %>
 
+  <main>
+    <% if (bks.length > 0) { %>
+      <div class="grid">
+        <% for (let book of bks) { %>
+          <article class="card book-item">
+            <header class="card__header">
+              <h1 class="book__title"><%= book.title %></h1>
+            </header>
+            <div class="card__image">
+              <img src="<%= book.imageUrl %>" alt="<%= book.title %>">
+            </div>
+            <div class="card__content">
+              <h2 class="book__pages"><%= book.pages %> pages</h2>
+              <p class="book__description"><%= book.description %></p>
+            </div>
+            <div class="card__actions">
+              <a href="/admin/edit-book" class="btn">Edit</a>
+              <form action="/admin/delete-book" method="POST">
+                <button class="btn" type="submit">Delete</button>
+              </form>                    
+            </div>
+            </article>
+          <% } %> <!-- enf for-loop-->
+      </div> <!-- End of .grid div -->
+    <% } else { %>
+      <h1>No Books Found!</h1>
+    <% } %>
+  </main>
 <%- include('../includes/end.ejs') %>

@@ -3,32 +3,32 @@
 </head>
 
 <body>
-    <%- include('../includes/navigation.ejs') %>
-
-    <main>
-        <% if (bks.length > 0) { %>
-            <div class="grid">
-                <% for (let book of bks) { %>
-                    <article class="card book-item">
-                        <header class="card__header">
-                            <h1 class="book__title"><%= book.title %></h1>
-                        </header>
-                        <div class="card__image">
-                            <img src="<%= book.imageUrl %>"
-                                alt="<%= book.title %>">
-                        </div>
-                        <div class="card__content">
-                            <h2 class="book__pages"><%= book.pages %> pages</h2>
-                            <p class="book__description"><%= book.description %></p>
-                        </div>
-                        <div class="card__actions">
-                            <button class="btn">Add to Read</button>
-                        </div>
-                    </article>
-                <% } %>
+  <%- include('../includes/navigation.ejs') %>
+  <main>
+    <% if (bks.length > 0) { %>
+      <div class="grid">
+        <% for (let book of bks) { %>
+          <article class="card book-item">
+            <header class="card__header">
+              <h1 class="book__title"><%= book.title %></h1>
+            </header>
+            <div class="card__image"> 
+              <img src="<%= book.imageUrl %>" alt="<%= book.title %>">
             </div>
-        <% } else { %>
-            <h1>No Books Found!</h1>
+            <div class="card__content">
+              <h2 class="book__pages"><%= book.pages %> pages</h2>
+              <p class="book__description"><%= book.description %></p>
+            </div>
+            <div class="card__actions">
+              <form action="/add-to-finished" method="POST">
+                <button class="btn">Add to Finished</button>
+              </form>                           
+            </div>
+          </article>
         <% } %>
-    </main>
+      </div> <!-- end div .grid-->
+    <% } else { %>
+      <h1>No Books Found!</h1>
+    <% } %>
+  </main>
 <%- include('../includes/end.ejs') %>

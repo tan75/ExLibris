@@ -1,33 +1,24 @@
+<div class="backdrop"></div>
 <header class="main-header">
+  <button id="side-menu-toggle">Menu</button>
   <nav class="main-header__nav">
     <ul class="main-header__item-list">
-      <li class="main-header__item">
-        <a class="<%= path === '/' ? 'active' : '' %>" href="/">Library</a>
-      </li>
-      <li class="main-header__item">
-        <a class="<%= path === '/books' ? 'active' : '' %>" href="/books"
-          >Books</a
-        >
-      </li>
-      <li class="main-header__item">
-        <a class="<%= path === '/report' ? 'active' : '' %>" href="/report"
-          >Report</a
-        >
-      </li>
-      <li class="main-header__item">
-        <a
-          class="<%= path === '/admin/add-book' ? 'active' : '' %>"
-          href="/admin/add-book"
-          >Add Book</a
-        >
-      </li>
-      <li class="main-header__item">
-        <a
-          class="<%= path === '/admin/books' ? 'active' : '' %>"
-          href="/admin/books"
-          >Admin Books</a
-        >
+      <li class="main-header__item"><a class="<%= path === '/' ? 'active' : '' %>" href="/">Library</a></li>
+      <li class="main-header__item"><a class="<%= path === '/books' ? 'active' : '' %>" href="/books">Books</a></li>
+      <li class="main-header__item"><a class="<%= path === '/report' ? 'active' : '' %>" href="/report">Report</a></li>
+      <li class="main-header__item"><a class="<%= path === '/admin/add-book' ? 'active' : '' %>" href="/admin/add-book">Add Book</a></li>
+      <li class="main-header__item"><a class="<%= path === '/admin/books' ? 'active' : '' %>" href="/admin/books">Admin Books</a>
       </li>
     </ul>
   </nav>
 </header>
+
+<nav class="mobile-nav">
+  <ul class="mobile-nav__item-list">
+    <li class="mobile-nav__item"> <a class="<%= path === '/' ? 'active' : '' %>" href="/">Library</a></li>
+    <li class="mobile-nav__item"><a class="<%= path === '/books' ? 'active' : '' %>" href="/books">Books</a></li>
+    <li class="mobile-nav__item"><a class="<%= path === '/report' ? 'active' : '' %>" href="/report">Report</a></li>
+    <li class="mobile-nav__item"><a class="<%= path === '/admin/add-book' ? 'active' : '' %>" href="/admin/add-book">Add Book</a></li>
+    <li class="mobile-nav__item"><a class="<%= path === '/admin/books' ? 'active' : '' %>" href="/admin/books">Admin Books</a></li>
+  </ul>
+</nav>
