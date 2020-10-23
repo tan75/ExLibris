@@ -10,6 +10,17 @@ exports.getBooks = (req, res) => {
   });
 };
 
+exports.getBook = (req, res) => {
+  const bookId = req.params.bookId; // comes from the route
+  Book.findById(bookId, (book) => {
+    res.render("library/book-detail", {
+      book: book,
+      pageTitle: "Book Details",
+      path: "/books",
+    });
+  });
+};
+
 exports.getIndex = (req, res) => {
   Book.fetchAll((books) => {
     res.render("library/index", {

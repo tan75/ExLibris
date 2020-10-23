@@ -25,7 +25,7 @@ module.exports = class Book {
   }
 
   save() {
-    this.id = Math.random().toString();
+    this.id = Math.random() * 100;
     getBooksFromFile((books) => {
       books.push(this);
       fs.writeFile(p, JSON.stringify(books), (err) => {
@@ -36,5 +36,15 @@ module.exports = class Book {
 
   static fetchAll(cb) {
     getBooksFromFile(cb);
+  }
+
+  static findById(id, cb) {
+    getBooksFromFile((books) => {
+      const bId = parseInt(id); // convert id to number
+      const book = books.find((b) => {
+        if (b.id === bId) return b;
+      });
+      cb(book);
+    });
   }
 };

@@ -1,0 +1,22 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/book.css">
+</head>
+
+<body>
+   <%- include('../includes/navigation.ejs') %>
+<main>
+  <main class="centered">
+  <h1><%= book.title %></h1>
+  <hr>
+  <div>
+    <img src="<%= book.imageUrl %>" alt="<%= book.title %>">
+  </div>
+  <h2><%= book.pages %></h2>
+  <p><%= book.description %></p>
+  <form action="/report" method="POST">
+    <button class="btn" type="submit">Add to Report</button>
+  </form>
+  </main>
+</main>
+
+<%- include('../includes/end.ejs') %>
