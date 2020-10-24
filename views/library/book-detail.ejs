@@ -13,10 +13,7 @@
   </div>
   <h2><%= book.pages %></h2>
   <p><%= book.description %></p>
-  <form action="/report" method="POST">
-    <button class="btn" type="submit">Add to Report</button>
-    <input type="hidden" name="bookId" value="<%= book.id %>">
-  </form>
+  <%- include('../includes/add-to-report.ejs') %>
   </main>
 </main>
 

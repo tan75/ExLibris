@@ -25,7 +25,7 @@ module.exports = class Book {
   }
 
   save() {
-    this.id = Math.random() * 100;
+    this.id = Math.floor(Math.random() * 100);
     getBooksFromFile((books) => {
       books.push(this);
       fs.writeFile(p, JSON.stringify(books), (err) => {

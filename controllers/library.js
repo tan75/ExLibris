@@ -40,5 +40,5 @@ exports.getReport = (req, res) => {
 
 exports.postReport = (req, res) => {
   const bookId = req.body.bookId;
-  console.log(bookId);
+  res.redirect("/report");
 };
