@@ -1,4 +1,5 @@
 const Book = require("../models/book");
+const Report = require("../models/report");
 
 exports.getBooks = (req, res) => {
   Book.fetchAll((books) => {
@@ -40,5 +41,8 @@ exports.getReport = (req, res) => {
 
 exports.postReport = (req, res) => {
   const bookId = req.body.bookId;
+  Book.findById(bookId, (book) => {
+    Report.addBook(bookId, book.pages);
+  });
   res.redirect("/report");
 };

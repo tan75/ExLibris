@@ -1,6 +1,12 @@
 const fs = require("fs");
 const path = require("path");
 
+const p = path.join(
+  path.dirname(process.mainModule.filename),
+  "data",
+  "books.json"
+);
+
 const getBooksFromFile = (cb) => {
   fs.readFile(p, (err, fileContent) => {
     if (err) {
@@ -9,12 +15,6 @@ const getBooksFromFile = (cb) => {
     cb(JSON.parse(fileContent));
   });
 };
-
-const p = path.join(
-  path.dirname(process.mainModule.filename),
-  "data",
-  "books.json"
-);
 
 module.exports = class Book {
   constructor(title, imageUrl, description, pages) {
