@@ -37,3 +37,8 @@ exports.getReport = (req, res) => {
     pageTitle: "Your Report",
   });
 };
+
+exports.postReport = (req, res) => {
+  const bookId = req.body.bookId;
+  console.log(bookId);
+};

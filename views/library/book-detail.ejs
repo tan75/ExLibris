@@ -15,6 +15,7 @@
   <p><%= book.description %></p>
   <form action="/report" method="POST">
     <button class="btn" type="submit">Add to Report</button>
+    <input type="hidden" name="bookId" value="<%= book.id %>">
   </form>
   </main>
 </main>
