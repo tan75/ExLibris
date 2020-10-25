@@ -42,6 +42,7 @@ exports.getReport = (req, res) => {
 exports.postReport = (req, res) => {
   const bookId = req.body.bookId;
   Book.findById(bookId, (book) => {
+    console.log(book);
     Report.addBook(bookId, book.pages);
   });
   res.redirect("/report");
