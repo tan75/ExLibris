@@ -21,6 +21,9 @@ exports.postAddBook = (req, res) => {
 
 exports.getEditBook = (req, res) => {
   const editMode = req.query.edit;
+  if (!editMode) {
+    return res.redirect("/");
+  }
 
   const bookId = req.params.bookId;
   Book.findById(bookId, (book) => {
@@ -34,6 +37,10 @@ exports.getEditBook = (req, res) => {
       book: book,
     });
   });
+};
+
+exports.postEditBook = (req, res) => {
+  //
 };
 
 exports.getBooks = (req, res) => {

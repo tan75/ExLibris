@@ -14,4 +14,6 @@ router.post("/add-book", adminController.postAddBook);
 
 router.get("/edit-book/:bookId", adminController.getEditBook);
 
+router.post("/edit-product");
+
 module.exports = router;
