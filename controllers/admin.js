@@ -4,6 +4,7 @@ exports.getAddBook = (req, res) => {
   res.render("admin/edit-book", {
     pageTitle: "Add Book",
     path: "/admin/add-book",
+    editing: false,
   });
 };
 
@@ -20,10 +21,18 @@ exports.postAddBook = (req, res) => {
 
 exports.getEditBook = (req, res) => {
   const editMode = req.query.edit;
-  res.render("admin/edit-book", {
-    pageTitle: "Edit Book",
-    path: "/admin/edit-book",
-    editing: editMode,
+
+  const bookId = req.params.bookId;
+  Book.findById(bookId, (book) => {
+    if (!book) {
+      return res.redirect("/");
+    }
+    res.render("admin/edit-book", {
+      pageTitle: "Edit Book",
+      path: "/admin/edit-book",
+      editing: editMode,
+      book: book,
+    });
   });
 };
 
