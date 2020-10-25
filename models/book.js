@@ -40,12 +40,10 @@ module.exports = class Book {
 
   static findById(id, cb) {
     getBooksFromFile((books) => {
-      console.log("112 ", books);
       const bId = parseInt(id); // convert id to number
       const book = books.find((b) => {
         if (b.id === bId) return b;
       });
-      console.log("111 ", book);
       cb(book);
     });
   }
