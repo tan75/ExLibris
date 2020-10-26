@@ -67,5 +67,6 @@ exports.getBooks = (req, res) => {
 };
 
 exports.postDeleleBook = (req, res) => {
+  const bookId = req.body.bookId;
   res.redirect("/");
 };

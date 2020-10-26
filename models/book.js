@@ -45,6 +45,18 @@ module.exports = class Book {
     });
   }
 
+  static deleteById(id) {
+    getBooksFromFile((books) => {
+      const bId = parseInt(id); // convert id to number
+      const updatedBooks = books.filter((b) => b.id !== id);
+      fs.writeFile(p, JSON.stringify(updatedBooks), (err) => {
+        if (!err) {
+          // remove book from report
+        }
+      });
+    });
+  }
+
   static fetchAll(cb) {
     getBooksFromFile(cb);
   }
