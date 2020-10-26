@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const { timeStamp } = require("console");
 
 const p = path.join(
   path.dirname(process.mainModule.filename),
@@ -17,7 +18,8 @@ const getBooksFromFile = (cb) => {
 };
 
 module.exports = class Book {
-  constructor(title, imageUrl, description, pages) {
+  constructor(id, title, imageUrl, description, pages) {
+    timeStamp.id = id;
     this.title = title;
     this.imageUrl = imageUrl;
     this.description = description;
@@ -25,12 +27,21 @@ module.exports = class Book {
   }
 
   save() {
-    this.id = Math.floor(Math.random() * 100);
     getBooksFromFile((books) => {
-      books.push(this);
-      fs.writeFile(p, JSON.stringify(books), (err) => {
-        console.log(err);
-      });
+      if (this.id) {
+        const existingBookIndex = books.findIndex((b) => b.id === this.id);
+        const updatedBooks = [...books];
+        updatedBooks[existingBookIndex] = this;
+        fs.writeFile(p, JSON.stringify(updatedBooks), (err) => {
+          console.log(err);
+        });
+      } else {
+        this.id = Math.floor(Math.random() * 100);
+        books.push(this);
+        fs.writeFile(p, JSON.stringify(books), (err) => {
+          console.log(err);
+        });
+      }
     });
   }
 

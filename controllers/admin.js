@@ -14,7 +14,7 @@ exports.postAddBook = (req, res) => {
   const imageUrl = req.body.imageUrl;
   const pages = req.body.pages;
   const description = req.body.description;
-  const book = new Book(title, imageUrl, description, pages);
+  const book = new Book(null, title, imageUrl, description, pages);
   book.save();
   res.redirect("/");
 };
@@ -40,7 +40,20 @@ exports.getEditBook = (req, res) => {
 };
 
 exports.postEditBook = (req, res) => {
-  //
+  const bookId = req.body.bookId;
+  const updatedTitle = req.body.title;
+  const updatedPages = req.body.pages;
+  const updatedImageUrl = req.body.imageUrl;
+  const updatedDescription = req.body.description;
+  const updatedBook = new Book(
+    bookId,
+    updatedTitle,
+    updatedPages,
+    updatedImageUrl,
+    updatedDescription
+  );
+  updatedBook.save();
+  res.redirect("/admin/books");
 };
 
 exports.getBooks = (req, res) => {
@@ -51,4 +64,8 @@ exports.getBooks = (req, res) => {
       path: "/admin/books",
     });
   });
+};
+
+exports.postDeleleBook = (req, res) => {
+  res.redirect("/");
 };
