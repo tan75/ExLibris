@@ -1,5 +1,4 @@
 const mongodb = require("mongodb");
-const { get } = require("../routes/admin");
 
 const MongoClient = mongodb.MongoClient;
 
@@ -22,8 +21,11 @@ const mongoConnect = (callback) => {
 };
 
 const getDb = () => {
-  if (_db) return _db;
-  else throw "No Database Found";
+  if (_db) {
+    return _db;
+  } else {
+    throw "No Database Found";
+  }
 };
 
 exports.mongoConnect = mongoConnect;
