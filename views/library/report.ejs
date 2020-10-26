@@ -5,7 +5,15 @@
 <body>
    <%- include('../includes/navigation.ejs') %>
 <main>
-  <h1>Report Coming Soon</h1>
+  <% if (books.length > 0) { %>
+    <ul>
+      <% books.forEach(b => { %>
+        <li><%= b.bookData.title %> (<%= b.pages %>) </li>
+      <% }) %>
+    </ul>
+  <% } else { %>
+    <h1>No Books in the Report</h1>
+  <% } %>
 </main>
 
 <%- include('../includes/end.ejs') %>

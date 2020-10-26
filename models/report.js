@@ -56,4 +56,15 @@ module.exports = class Report {
       });
     });
   }
+
+  static getReport(cb) {
+    fs.readFile(p, (err, fileContent) => {
+      const report = JSON.parse(fileContent);
+      if (err) {
+        cb(null);
+      } else {
+        cb(report);
+      }
+    });
+  }
 };

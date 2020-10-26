@@ -33,9 +33,21 @@ exports.getIndex = (req, res) => {
 };
 
 exports.getReport = (req, res) => {
-  res.render("library/report", {
-    path: "/report",
-    pageTitle: "Your Report",
+  Report.getReport((report) => {
+    Book.fetchAll((books) => {
+      const reportBooks = [];
+      for (let book of books) {
+        const reportBookData = report.books.find((bk) => bk.id === book.id);
+        if (reportBookData) {
+          reportBooks.push({ bookData: book, pages: reportBookData.pages });
+        }
+      }
+      res.render("library/report", {
+        path: "/report",
+        pageTitle: "Your Report",
+        books: reportBooks,
+      });
+    });
   });
 };
 
