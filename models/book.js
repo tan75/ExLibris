@@ -1,5 +1,8 @@
 const fs = require("fs");
 const path = require("path");
+
+const Report = require("./report");
+
 const { timeStamp } = require("console");
 
 const p = path.join(
@@ -46,12 +49,13 @@ module.exports = class Book {
   }
 
   static deleteById(id) {
+    const bId = parseInt(id); // convert id to number
     getBooksFromFile((books) => {
-      const bId = parseInt(id); // convert id to number
-      const updatedBooks = books.filter((b) => b.id !== id);
+      const book = books.find((b) => b.id === bId);
+      const updatedBooks = books.filter((b) => b.id !== bId);
       fs.writeFile(p, JSON.stringify(updatedBooks), (err) => {
         if (!err) {
-          // remove book from report
+          Report.deleteBookById(id, book.pages);
         }
       });
     });

@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const { report } = require("../routes/admin");
 
 const p = path.join(
   path.dirname(process.mainModule.filename),
@@ -34,6 +35,23 @@ module.exports = class Report {
       // Get total pages
       report.totalPages = report.totalPages + +bookPages;
       fs.writeFile(p, JSON.stringify(report), (err) => {
+        console.log(err);
+      });
+    });
+  }
+
+  static deleteBookById(id, bookPages) {
+    fs.readFile(p, (err, fileContent) => {
+      if (err) {
+        return;
+      }
+
+      const updatedReport = { ...JSON.parse(fileContent) };
+      const book = updatedReport.books.find((b) => b.id === id);
+      const bookQty = book.qty;
+      updatedReport.books = updatedReport.books.filter((b) => b.id !== id);
+      updatedReport.totalPages = updatedReport.totalPages - bookPages * bookQty;
+      fs.writeFile(p, JSON.stringify(updatedReport), (err) => {
         console.log(err);
       });
     });
