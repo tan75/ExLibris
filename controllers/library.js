@@ -15,13 +15,15 @@ exports.getBooks = (req, res) => {
 
 exports.getBook = (req, res) => {
   const bookId = req.params.bookId; // comes from the route
-  Book.findById(bookId, (book) => {
-    res.render("library/book-detail", {
-      book: book,
-      pageTitle: "Book Details",
-      path: "/books",
-    });
-  });
+  Book.findById(bookId)
+    .then((book) => {
+      res.render("library/book-detail", {
+        book: book,
+        pageTitle: book.title,
+        path: "/books",
+      });
+    })
+    .catch((err) => console.log(err));
 };
 
 exports.getIndex = (req, res) => {

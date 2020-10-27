@@ -8,7 +8,7 @@ router.get("/", libraryController.getIndex);
 
 router.get("/books", libraryController.getBooks);
 
-// router.get("/books/:bookId", libraryController.getBook);
+router.get("/books/:bookId", libraryController.getBook);
 
 // router.get("/report", libraryController.getReport);
 
