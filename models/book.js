@@ -16,6 +16,19 @@ class Book {
       .then((result) => console.log(result))
       .catch((err) => console.log(err));
   }
+
+  static fetchAll() {
+    const db = getDb();
+    return db
+      .collection("books")
+      .find()
+      .toArray()
+      .then((books) => {
+        console.log(books);
+        return books;
+      })
+      .catch((err) => console.log(err));
+  }
 }
 
 module.exports = Book;
