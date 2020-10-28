@@ -26,7 +26,7 @@
       </div>
 
       <% if (editing) { %>
-       <input type="hidden" value="<%= book.id %>" name="bookId">
+       <input type="hidden" value="<%= book._id %>" name="bookId">
       <% } %>
 
       <button class="btn" type="submit"><% if (editing) { %> Update Book <% } else { %> Add Book <% } %></button>

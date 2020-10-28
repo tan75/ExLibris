@@ -21,6 +21,9 @@
               <p class="book__description"><%= book.description %></p>
             </div>
             <div class="card__actions">
+              <a href="/books/<%= book._id%>" class="btn">Details</a>
+            </div>
+            <div class="card__actions">
               <form action="/report" method="POST">
                 <%- include('../includes/add-to-report.ejs', {book: book}) %>
               </form>
