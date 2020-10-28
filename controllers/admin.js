@@ -1,4 +1,5 @@
 const Book = require("../models/book");
+const mongodb = require("mongodb");
 
 exports.getAddBook = (req, res) => {
   res.render("admin/edit-book", {
@@ -52,14 +53,21 @@ exports.postEditBook = (req, res) => {
   const updatedPages = req.body.pages;
   const updatedImageUrl = req.body.imageUrl;
   const updatedDescription = req.body.description;
-  const updatedBook = new Book(
-    bookId,
+
+  const book = new Book(
     updatedTitle,
     updatedPages,
+    updatedDescription,
     updatedImageUrl,
-    updatedDescription
+    new mongodb.ObjectID(bookId)
   );
-  updatedBook.save();
+  book
+    .save()
+    .then((result) => {
+      console.log("Updated Book!");
+      res.redirect("/admin/books");
+    })
+    .catch((err) => console.log(err));
   res.redirect("/admin/books");
 };
 
@@ -75,8 +83,12 @@ exports.getBooks = (req, res) => {
     .catch((err) => console.log(err));
 };
 
-// exports.postDeleleBook = (req, res) => {
-//   const bookId = req.body.bookId;
-//   Book.deleteById(bookId);
-//   res.redirect("/admin/books");
-// };
+exports.postDeleleBook = (req, res) => {
+  const bookId = req.body.bookId;
+  Book.deleteById(bookId)
+    .then(() => {
+      console.log("Book Deleted");
+      res.redirect("/admin/books");
+    })
+    .catch((err) => console.log(err));
+};

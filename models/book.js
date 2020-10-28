@@ -1,6 +1,8 @@
 const getDb = require("../util/database").getDb;
 const mongoDb = require("mongodb");
 
+const collectionName = "books";
+
 class Book {
   constructor(title, pages, description, imageUrl, id) {
     this.title = title;
@@ -32,7 +34,6 @@ class Book {
       .find()
       .toArray()
       .then((books) => {
-        console.log(books);
         return books;
       })
       .catch((err) => console.log(err));
@@ -45,8 +46,18 @@ class Book {
       .find({ _id: new mongoDb.ObjectID(bookId) })
       .next()
       .then((book) => {
-        console.log(book);
         return book;
+      })
+      .catch((err) => console.log(err));
+  }
+
+  static deleteById(bookId) {
+    const db = getDb();
+    return db
+      .collection(collectionName)
+      .deleteOne({ _id: new mongoDb.ObjectID(bookId) })
+      .then(() => {
+        console.log("Book Deleted");
       })
       .catch((err) => console.log(err));
   }
