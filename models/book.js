@@ -2,18 +2,25 @@ const getDb = require("../util/database").getDb;
 const mongoDb = require("mongodb");
 
 class Book {
-  constructor(title, pages, description, imageUrl) {
+  constructor(title, pages, description, imageUrl, id) {
     this.title = title;
     this.pages = pages;
     this.description = description;
     this.imageUrl = imageUrl;
+    this._id = id;
   }
 
   save() {
     const db = getDb();
-    return db
-      .collection("books")
-      .insertOne(this)
+    let dbOp;
+    if (this._id) {
+      dbOp = db
+        .collection("books")
+        .updateOne({ _id: new mongoDb.ObjectID(this._id) }, { $set: this });
+    } else {
+      dbOp = db.collection("books").insertOne(this);
+    }
+    return dbOp
       .then((result) => console.log(result))
       .catch((err) => console.log(err));
   }
@@ -31,7 +38,7 @@ class Book {
       .catch((err) => console.log(err));
   }
 
-  static findById = (bookId) => {
+  static findById(bookId) {
     const db = getDb();
     return db
       .collection("books")
@@ -42,7 +49,7 @@ class Book {
         return book;
       })
       .catch((err) => console.log(err));
-  };
+  }
 }
 
 module.exports = Book;
