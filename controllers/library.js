@@ -36,32 +36,25 @@ exports.getIndex = (req, res) => {
       })
       .catch((err) => console.log(err));
   });
+};
 
-  exports.getReport = (req, res) => {
-    Report.getReport((report) => {
-      Book.fetchAll((books) => {
-        const reportBooks = [];
-        for (let book of books) {
-          const reportBookData = report.books.find((bk) => bk.id === book.id);
-          if (reportBookData) {
-            reportBooks.push({ bookData: book, pages: reportBookData.pages });
-          }
-        }
-        res.render("library/report", {
-          path: "/report",
-          pageTitle: "Your Report",
-          books: reportBooks,
-        });
+exports.getReport = (req, res) => {
+  Report.fetchAll()
+    .then((reportBooks) => {
+      res.render("library/report", {
+        path: "/report",
+        pageTitle: "Your Reading Report",
+        books: reportBooks,
       });
-    });
-  };
+    })
+    .catch((err) => console.log(err));
+};
 
-  // exports.postReport = (req, res) => {
-  //   const bookId = req.body.bookId;
-  //   Book.findById(bookId, (book) => {
-  //     console.log(book);
-  //     Report.addBook(bookId, book.pages);
-  //   });
-  //   res.redirect("/report");
-  // });
+exports.postReport = (req, res) => {
+  const bookId = req.body.bookId;
+  Book.findById(bookId, (book) => {
+    console.log(book);
+    Report.addBook(bookId, book.pages);
+  });
+  res.redirect("/report");
 };
