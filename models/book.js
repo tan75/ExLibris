@@ -61,6 +61,10 @@ class Book {
       })
       .catch((err) => console.log(err));
   }
+
+  addToReport(book) {
+    //
+  }
 }
 
 module.exports = Book;

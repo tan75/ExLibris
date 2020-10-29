@@ -33,6 +33,7 @@ class Report {
       })
       .catch((err) => console.log(err));
   }
+
   static addBook(id, bookPages) {
     console.log(id, pages);
     //Fetch the previous report
