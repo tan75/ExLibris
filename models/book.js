@@ -1,15 +1,17 @@
 const getDb = require("../util/database").getDb;
 const mongoDb = require("mongodb");
+const { use } = require("../routes/admin");
 
 const collectionName = "books";
 
 class Book {
-  constructor(title, pages, description, imageUrl, id) {
+  constructor(title, pages, description, imageUrl, id, userId) {
     this.title = title;
     this.pages = pages;
     this.description = description;
     this.imageUrl = imageUrl;
     this._id = id ? new mongoDb.ObjectID(id) : null;
+    this.userId = userId;
   }
 
   save() {
@@ -46,6 +48,7 @@ class Book {
       .find({ _id: new mongoDb.ObjectID(bookId) })
       .next()
       .then((book) => {
+        //console.log("models -> book > findById ", book);
         return book;
       })
       .catch((err) => console.log(err));
@@ -60,10 +63,6 @@ class Book {
         console.log("Book Deleted");
       })
       .catch((err) => console.log(err));
-  }
-
-  addToReport(book) {
-    //
   }
 }
 

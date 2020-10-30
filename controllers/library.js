@@ -52,9 +52,14 @@ exports.getReport = (req, res) => {
 
 exports.postReport = (req, res) => {
   const bookId = req.body.bookId;
-  Book.findById(bookId, (book) => {
-    console.log(book);
-    Report.addBook(bookId, book.pages);
-  });
+  Book.findById(bookId)
+    .then((book) => {
+      console.log("123 req.user ", req.user);
+      return req.user.addToReport(book);
+    })
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((err) => console.log(err));
   res.redirect("/report");
 };

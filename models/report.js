@@ -34,14 +34,6 @@ class Report {
       .catch((err) => console.log(err));
   }
 
-  static addBook(id, bookPages) {
-    console.log(id, pages);
-    //Fetch the previous report
-    // Analyze the report => find existing books
-    // Add new book or increase quantity of pages
-    // Get total pages
-  }
-
   static deleteBookById(id, bookPages) {
     //
   }

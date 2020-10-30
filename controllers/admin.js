@@ -15,7 +15,14 @@ exports.postAddBook = (req, res) => {
   const imageUrl = req.body.imageUrl;
   const pages = req.body.pages;
   const description = req.body.description;
-  const book = new Book(title, pages, description, imageUrl);
+  const book = new Book(
+    title,
+    pages,
+    description,
+    imageUrl,
+    null,
+    req.user._id
+  );
   book
     .save()
     .then((result) => {
