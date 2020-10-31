@@ -22,13 +22,7 @@ app.use(express.static(path.join(__dirname, "public"))); // to serve static file
 app.use((req, res, next) => {
   User.findById("5f9be35bdd3b1f017e4ebf99")
     .then((user) => {
-      console.log("789 ", user);
-      //console.log("1011 ", req);
-
       req.user = new User(user._id, user.name, user.email, user.report);
-
-      //req.user = user;
-      console.log("098 ", req.user);
       next();
     })
     .catch((err) => console.log(err));

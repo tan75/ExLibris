@@ -57,6 +57,9 @@ exports.postReport = (req, res) => {
       console.log("123 req.user ", req.user);
       return req.user.addToReport(book);
     })
+    .then((result) => {
+      console.log(result);
+    })
     .catch((err) => console.log(err));
   res.redirect("/report");
 };

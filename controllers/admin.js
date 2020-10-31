@@ -25,7 +25,7 @@ exports.postAddBook = (req, res) => {
   );
   book
     .save()
-    .then((result) => {
+    .then(() => {
       console.log("Created Book");
       res.redirect("/");
     })
@@ -70,7 +70,7 @@ exports.postEditBook = (req, res) => {
   );
   book
     .save()
-    .then((result) => {
+    .then(() => {
       console.log("Updated Book!");
       res.redirect("/admin/books");
     })

@@ -1,6 +1,8 @@
 const getDb = require("../util/database").getDb;
 const mongoDb = require("mongodb");
 
+const ObjectId = mongoDb.ObjectId;
+
 const collectionName = "users";
 
 class User {
@@ -20,9 +22,8 @@ class User {
     const db = getDb();
     return db
       .collection(collectionName)
-      .findOne({ _id: new mongoDb.ObjectID(userId) })
+      .findOne({ _id: new ObjectId(userId) })
       .then((user) => {
-        console.log("456 user ", user);
         return user;
       })
       .catch((err) => console.log(err));
@@ -33,14 +34,20 @@ class User {
     //   return (rb._id = book._id);
     // });
 
-    const updatedReport = { books: [{ ...book, pages: 1 }] };
+    const updatedReport = {
+      books: [
+        {
+          bookId: new ObjectId(book._id),
+          title: book.title,
+          pages: book.pages,
+        },
+      ],
+    };
 
-    console.log("999 updated report ", updatedReport);
     const db = getDb();
-    console.log("777 adding to report...", this);
     return db.collection(collectionName).updateOne(
       {
-        _id: this._id,
+        _id: new ObjectId(this._id),
       },
       { $set: { report: updatedReport } }
     );
