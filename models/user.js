@@ -30,18 +30,30 @@ class User {
   }
 
   addToReport(book) {
-    // const reportBook = this.report.books.findIndex((rb) => {
-    //   return (rb._id = book._id);
-    // });
+    const reportBookIndex = this.report.books.findIndex((rb) => {
+      return rb.bookId.toString() === book._id.toString();
+    });
+
+    let newPages = 0;
+    const updatedReportBooks = [...this.report.books];
+
+    // Check the if a book already exists
+    // and add pages
+    if (reportBookIndex >= 0) {
+      newPages =
+        Math.floor(this.report.books[reportBookIndex].pages) +
+        Math.floor(this.report.books[reportBookIndex].pages);
+      updatedReportBooks[reportBookIndex].pages = newPages;
+    } else {
+      updatedReportBooks.push({
+        bookId: new ObjectId(book._id),
+        title: book.title,
+        pages: +book.pages,
+      });
+    }
 
     const updatedReport = {
-      books: [
-        {
-          bookId: new ObjectId(book._id),
-          title: book.title,
-          pages: book.pages,
-        },
-      ],
+      books: updatedReportBooks,
     };
 
     const db = getDb();

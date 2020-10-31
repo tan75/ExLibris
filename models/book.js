@@ -1,6 +1,5 @@
 const getDb = require("../util/database").getDb;
 const mongoDb = require("mongodb");
-const { use } = require("../routes/admin");
 
 const collectionName = "books";
 
@@ -48,7 +47,6 @@ class Book {
       .find({ _id: new mongoDb.ObjectID(bookId) })
       .next()
       .then((book) => {
-        //console.log("models -> book > findById ", book);
         return book;
       })
       .catch((err) => console.log(err));
