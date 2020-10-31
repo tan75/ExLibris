@@ -44,7 +44,6 @@ class User {
       },
       { $set: { report: updatedReport } }
     );
-    // return db.collection(collectionName).insertOne(this);
   }
 }
 
