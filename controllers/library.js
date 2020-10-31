@@ -39,8 +39,10 @@ exports.getIndex = (req, res) => {
 };
 
 exports.getReport = (req, res) => {
-  Report.fetchAll()
+  req.user
+    .getReport()
     .then((reportBooks) => {
+      console.log("098 ", reportBooks);
       res.render("library/report", {
         path: "/report",
         pageTitle: "Your Reading Report",
@@ -54,12 +56,11 @@ exports.postReport = (req, res) => {
   const bookId = req.body.bookId;
   Book.findById(bookId)
     .then((book) => {
-      console.log("123 req.user ", req.user);
       return req.user.addToReport(book);
     })
     .then((result) => {
       console.log(result);
+      res.redirect("/report");
     })
     .catch((err) => console.log(err));
-  res.redirect("/report");
 };

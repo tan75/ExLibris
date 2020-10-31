@@ -29,6 +29,27 @@ class User {
       .catch((err) => console.log(err));
   }
 
+  getReport() {
+    const db = getDb();
+    const bookIds = this.report.books.map((i) => {
+      return i.bookId;
+    });
+    return db
+      .collection(collectionName)
+      .find({ _id: { $in: bookIds } })
+      .toArray()
+      .then((books) => {
+        return books.map((b) => {
+          return {
+            ...b,
+            pages: this.report.books.find((i) => {
+              return i.bookId.toString() === b._id.toString();
+            }).pages,
+          };
+        });
+      });
+  }
+
   addToReport(book) {
     const reportBookIndex = this.report.books.findIndex((rb) => {
       return rb.bookId.toString() === book._id.toString();
@@ -63,7 +84,7 @@ class User {
       },
       { $set: { report: updatedReport } }
     );
-  }
+  } // end addToReport
 }
 
 module.exports = User;
