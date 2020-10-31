@@ -24,9 +24,11 @@ app.use((req, res, next) => {
     .then((user) => {
       console.log("789 ", user);
       //console.log("1011 ", req);
+
       req.user = new User(user._id, user.name, user.email, user.report);
+
       //req.user = user;
-      console.log("12345 req.user ", req.user);
+      console.log("098 ", req.user);
       next();
     })
     .catch((err) => console.log(err));

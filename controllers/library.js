@@ -27,15 +27,15 @@ exports.getBook = (req, res) => {
 };
 
 exports.getIndex = (req, res) => {
-  Book.fetchAll().then((books) => {
-    res
-      .render("library/index", {
+  Book.fetchAll()
+    .then((books) => {
+      res.render("library/index", {
         bks: books,
         pageTitle: "Home",
         path: "/",
-      })
-      .catch((err) => console.log(err));
-  });
+      });
+    })
+    .catch((err) => console.log(err));
 };
 
 exports.getReport = (req, res) => {
