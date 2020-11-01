@@ -1,5 +1,6 @@
 const Book = require("../models/book");
 const mongodb = require("mongodb");
+const { validationResult } = require("express-validator/check");
 
 exports.getAddBook = (req, res) => {
   res.render("admin/edit-book", {
@@ -10,11 +11,25 @@ exports.getAddBook = (req, res) => {
 };
 
 exports.postAddBook = (req, res) => {
+  const editMode = req.query.edit;
   // coming from the view => the name attribute of input tag
   const title = req.body.title;
   const imageUrl = req.body.imageUrl;
   const pages = req.body.pages;
   const description = req.body.description;
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    console.log("6789 ", errors.array());
+    return res.status(422).render("admin/edit-book", {
+      pageTitle: "Add Book",
+      path: "/admin/edit-book",
+      editing: editMode,
+      //book: book,
+      errorMessage: errors.array(),
+    });
+  }
+
   const book = new Book(
     title,
     pages,
