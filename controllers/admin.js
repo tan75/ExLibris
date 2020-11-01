@@ -75,7 +75,6 @@ exports.postEditBook = (req, res) => {
       res.redirect("/admin/books");
     })
     .catch((err) => console.log(err));
-  res.redirect("/admin/books");
 };
 
 exports.getBooks = (req, res) => {
