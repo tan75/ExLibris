@@ -8,7 +8,7 @@
   <% if (books.length > 0) { %>
     <ul>
       <% books.forEach(b => { %>
-        <li><%= b.bookData.title %> (<%= b.pages %>) </li>
+        <li><%= b.title %> (<%= b.pages %>) </li>
       <% }) %>
     </ul>
   <% } else { %>

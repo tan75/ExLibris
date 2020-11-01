@@ -4,12 +4,13 @@ const mongoDb = require("mongodb");
 const collectionName = "books";
 
 class Book {
-  constructor(title, pages, description, imageUrl, id) {
+  constructor(title, pages, description, imageUrl, id, userId) {
     this.title = title;
     this.pages = pages;
     this.description = description;
     this.imageUrl = imageUrl;
-    this._id = id;
+    this._id = id ? new mongoDb.ObjectID(id) : null;
+    this.userId = userId;
   }
 
   save() {
@@ -17,10 +18,10 @@ class Book {
     let dbOp;
     if (this._id) {
       dbOp = db
-        .collection("books")
+        .collection(collectionName)
         .updateOne({ _id: new mongoDb.ObjectID(this._id) }, { $set: this });
     } else {
-      dbOp = db.collection("books").insertOne(this);
+      dbOp = db.collection(collectionName).insertOne(this);
     }
     return dbOp
       .then((result) => console.log(result))
@@ -30,7 +31,7 @@ class Book {
   static fetchAll() {
     const db = getDb();
     return db
-      .collection("books")
+      .collection(collectionName)
       .find()
       .toArray()
       .then((books) => {
@@ -42,7 +43,7 @@ class Book {
   static findById(bookId) {
     const db = getDb();
     return db
-      .collection("books")
+      .collection(collectionName)
       .find({ _id: new mongoDb.ObjectID(bookId) })
       .next()
       .then((book) => {
