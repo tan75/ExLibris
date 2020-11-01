@@ -1,5 +1,4 @@
 const Book = require("../models/book");
-const Report = require("../models/report");
 
 exports.getBooks = (req, res) => {
   Book.fetchAll()
@@ -42,7 +41,6 @@ exports.getReport = (req, res) => {
   req.user
     .getReport()
     .then((reportBooks) => {
-      console.log("098 ", reportBooks);
       res.render("library/report", {
         path: "/report",
         pageTitle: "Your Reading Report",

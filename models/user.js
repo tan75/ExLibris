@@ -3,7 +3,9 @@ const mongoDb = require("mongodb");
 
 const ObjectId = mongoDb.ObjectId;
 
-const collectionName = "users";
+// Collections
+const userCollectionName = "users";
+const booksCollectionName = "books";
 
 class User {
   constructor(id, name, email, report) {
@@ -15,13 +17,13 @@ class User {
 
   save() {
     const db = getDb();
-    return db.collection(collectionName).insertOne(this);
+    return db.collection(userCollectionName).insertOne(this);
   }
 
   static findById(userId) {
     const db = getDb();
     return db
-      .collection(collectionName)
+      .collection(userCollectionName)
       .findOne({ _id: new ObjectId(userId) })
       .then((user) => {
         return user;
@@ -34,8 +36,9 @@ class User {
     const bookIds = this.report.books.map((i) => {
       return i.bookId;
     });
+
     return db
-      .collection(collectionName)
+      .collection(booksCollectionName)
       .find({ _id: { $in: bookIds } })
       .toArray()
       .then((books) => {
@@ -78,7 +81,7 @@ class User {
     };
 
     const db = getDb();
-    return db.collection(collectionName).updateOne(
+    return db.collection(userCollectionName).updateOne(
       {
         _id: new ObjectId(this._id),
       },
