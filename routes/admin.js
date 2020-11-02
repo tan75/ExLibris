@@ -1,4 +1,5 @@
 const express = require("express");
+const { check } = require("express-validator");
 
 const router = express.Router();
 
@@ -10,7 +11,11 @@ router.get("/add-book", adminController.getAddBook);
 router.get("/books", adminController.getBooks);
 
 // /admin/add-book => POST
-router.post("/add-book", adminController.postAddBook);
+router.post(
+  "/add-book",
+  check("title").isAlphanumeric(),
+  adminController.postAddBook
+);
 
 router.get("/edit-book/:bookId", adminController.getEditBook);
 
