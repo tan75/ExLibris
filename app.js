@@ -2,6 +2,7 @@ const path = require("path");
 
 const express = require("express");
 const bodyParser = require("body-parser");
+const flash = require("connect-flash");
 
 const mongoConnect = require("./util/database").mongoConnect;
 const User = require("./models/user");
@@ -28,7 +29,9 @@ app.use((req, res, next) => {
     .catch((err) => console.log(err));
 });
 
+//app.use(flash);
 app.use("/admin", adminRoutes);
+//app.use(flash);
 app.use(libraryRoutes);
 app.use(errorController.get404);
 
