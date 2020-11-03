@@ -8,7 +8,7 @@
 
   <main>
     <% if(errorMessage) { %>
-      <div><%= errorMessage %></div>
+      <div class="user-message user-message--error"><%= errorMessage %></div>
     <% } %>
     <form class="book-form" action="/admin/<% if (editing) { %>edit-book<%} else { %>add-book<% } %>" method="POST">
       <div class="form-control">

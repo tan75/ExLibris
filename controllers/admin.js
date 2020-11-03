@@ -1,36 +1,44 @@
 const Book = require("../models/book");
 const mongodb = require("mongodb");
 const { validationResult } = require("express-validator");
-const flash = require("connect-flash");
 
 exports.getAddBook = (req, res) => {
+  // to get rid of the empty message block
+  let message = req.flash("error");
+  console.log("4355 ", message);
+  if (message.length > 0) {
+    message = message[0];
+  } else {
+    message = null;
+  }
+
   res.render("admin/edit-book", {
     pageTitle: "Add Book",
     path: "/admin/add-book",
     editing: false,
-    errorMessage: req.flash("error"),
+    errorMessage: message,
   });
 };
 
 exports.postAddBook = (req, res) => {
   // req.query.edit - coming from the view => the name attribute of input tag
-  const editMode = req.query.edit;
   const title = req.body.title;
   const imageUrl = req.body.imageUrl;
   const pages = req.body.pages;
   const description = req.body.description;
   const errors = validationResult(req);
+  const editMode = req.query.edit;
+  console.log("43577 ", errors);
 
   if (!errors.isEmpty()) {
     req.flash("error", "Invalid Book Title");
-    return res.redirect("/admin/add-book");
-    // res.status(422).render("admin/edit-book", {
-    //   pageTitle: "Add Book",
-    //   path: "/admin/edit-book",
-    //   editing: editMode,
-    //   //book: book,
-    //   errorMessage: errors.array(),
-    // });
+    return res.status(422).render("admin/edit-book", {
+      pageTitle: "Add Book",
+      path: "/admin/edit-book",
+      editing: editMode,
+      //book: book,
+      errorMessage: errors.array()[0].msg,
+    });
   }
 
   const book = new Book(
