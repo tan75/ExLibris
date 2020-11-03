@@ -21,7 +21,7 @@ const errorController = require("./controllers/error");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public"))); // to serve static files like css files
 app.use(
-  session({ secret: "my secret", resave: true, saveUninitialized: true })
+  session({ secret: "my secret", resave: false, saveUninitialized: false })
 );
 
 app.use(flash());

@@ -14,6 +14,7 @@ router.get("/books", adminController.getBooks);
 router.post(
   "/add-book",
   check("title").isAlphanumeric(),
+  check("imageUrl").isURL(),
   adminController.postAddBook
 );
 
