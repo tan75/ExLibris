@@ -5,6 +5,7 @@ const { validationResult } = require("express-validator");
 exports.getAddBook = (req, res) => {
   // to get rid of the empty message block
   let message = req.flash("error");
+  console.log("4355 ", message);
   if (message.length > 0) {
     message = message[0];
   } else {
@@ -26,17 +27,18 @@ exports.postAddBook = (req, res) => {
   const pages = req.body.pages;
   const description = req.body.description;
   const errors = validationResult(req);
+  const editMode = req.query.edit;
+  console.log("43577 ", errors);
 
   if (!errors.isEmpty()) {
     req.flash("error", "Invalid Book Title");
-    return res.redirect("/admin/add-book");
-    // res.status(422).render("admin/edit-book", {
-    //   pageTitle: "Add Book",
-    //   path: "/admin/edit-book",
-    //   editing: editMode,
-    //   //book: book,
-    //   errorMessage: errors.array(),
-    // });
+    return res.status(422).render("admin/edit-book", {
+      pageTitle: "Add Book",
+      path: "/admin/edit-book",
+      editing: editMode,
+      //book: book,
+      errorMessage: errors.array()[0].msg,
+    });
   }
 
   const book = new Book(
