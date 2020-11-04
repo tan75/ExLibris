@@ -18,9 +18,6 @@ router.post(
     .withMessage("Please Enter Alphanumeric Characters Only"),
   check("imageUrl").isURL().withMessage("Please Enter Valid URL"),
   check("pages").isInt().withMessage("Please Enter Valid Number of Pages"),
-  check("description")
-    .isAlphanumeric()
-    .withMessage("Please Enter Valid Description"),
   adminController.postAddBook
 );
 
@@ -35,10 +32,6 @@ router.post(
       .withMessage("Please Enter Alphanumeric Characters Only"),
     check("imageUrl").isURL().withMessage("Please Enter Valid URL"),
     check("pages").isInt().withMessage("Please Enter Valid Number of Pages"),
-    check("description")
-      .isLength({ max: 500 })
-      .isAlphanumeric()
-      .withMessage("Please Enter Valid Description"),
   ],
   adminController.postEditBook
 );
