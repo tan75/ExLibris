@@ -5,7 +5,6 @@ const { validationResult } = require("express-validator");
 exports.getAddBook = (req, res) => {
   // to get rid of the empty message block
   let message = req.flash("error");
-  console.log("4355 ", message);
   if (message.length > 0) {
     message = message[0];
   } else {
@@ -28,15 +27,19 @@ exports.postAddBook = (req, res) => {
   const description = req.body.description;
   const errors = validationResult(req);
   const editMode = req.query.edit;
-  console.log("43577 ", errors);
 
   if (!errors.isEmpty()) {
-    req.flash("error", "Invalid Book Title");
     return res.status(422).render("admin/edit-book", {
       pageTitle: "Add Book",
       path: "/admin/edit-book",
       editing: editMode,
       //book: book,
+      book: {
+        title: title,
+        imageUrl: imageUrl,
+        pages: pages,
+        description: description,
+      },
       errorMessage: errors.array()[0].msg,
     });
   }
@@ -60,6 +63,7 @@ exports.postAddBook = (req, res) => {
 
 exports.getEditBook = (req, res) => {
   const editMode = req.query.edit;
+
   if (!editMode) {
     return res.redirect("/");
   }
@@ -75,10 +79,11 @@ exports.getEditBook = (req, res) => {
         path: "/admin/edit-book",
         editing: editMode,
         book: book,
+        errorMessage: "",
       });
     })
     .catch((err) => console.log(err));
-};
+}; // end getEditBook
 
 exports.postEditBook = (req, res) => {
   const bookId = req.body.bookId;
@@ -86,13 +91,32 @@ exports.postEditBook = (req, res) => {
   const updatedPages = req.body.pages;
   const updatedImageUrl = req.body.imageUrl;
   const updatedDescription = req.body.description;
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).render("admin/edit-book", {
+      pageTitle: "Edit Book",
+      path: "/admin/edit-book",
+      editing: "true",
+      hasError: true,
+      //book: book,
+      book: {
+        title: updatedTitle,
+        imageUrl: updatedImageUrl,
+        pages: updatedPages,
+        description: updatedDescription,
+      },
+      errorMessage: errors.array()[0].msg,
+    });
+  }
 
   const book = new Book(
     updatedTitle,
     updatedPages,
     updatedDescription,
     updatedImageUrl,
-    new mongodb.ObjectID(bookId)
+    //new mongodb.ObjectID(bookId)
+    bookId
   );
   book
     .save()
@@ -101,7 +125,7 @@ exports.postEditBook = (req, res) => {
       res.redirect("/admin/books");
     })
     .catch((err) => console.log(err));
-};
+}; // end postEditBook
 
 exports.getBooks = (req, res) => {
   Book.fetchAll()
