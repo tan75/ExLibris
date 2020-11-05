@@ -35,6 +35,7 @@
     "ndb": "^1.1.5"
   },
   "devDependencies": {
+    "@shelf/jest-mongodb": "^1.2.3",
     "eslint": "^7.10.0",
     "eslint-plugin-node": "^11.1.0",
     "expect": "^26.6.2",
