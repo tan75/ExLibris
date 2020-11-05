@@ -7,7 +7,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "mocha",
+    "test": "jest",
     "start": "nodemon app.js",
     "start:prod": "node app.js",
     "lint": "eslint",
@@ -38,10 +38,13 @@
     "chai": "^4.2.0",
     "eslint": "^7.10.0",
     "eslint-plugin-node": "^11.1.0",
+    "expect": "^26.6.2",
+    "faker": "^5.1.0",
     "jest": "^26.6.1",
     "mocha": "^8.2.1",
     "nodemon": "^2.0.4",
-    "prettier": "2.1.2"
+    "prettier": "2.1.2",
+    "supertest": "^6.0.1"
   },
   "rules": {
     "node/no-unpublished-require": [

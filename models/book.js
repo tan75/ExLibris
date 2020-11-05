@@ -24,7 +24,9 @@ class Book {
       dbOp = db.collection(collectionName).insertOne(this);
     }
     return dbOp
-      .then((result) => console.log(result))
+      .then((result) => {
+        console.log(result);
+      })
       .catch((err) => console.log(err));
   }
 
