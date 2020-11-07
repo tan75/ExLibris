@@ -31,7 +31,7 @@ exports.postAddBook = (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(422).render("admin/edit-book", {
       pageTitle: "Add Book",
-      path: "/admin/add-book",
+      path: "/admin/edit-book",
       editing: editMode,
       //book: book,
       book: {
@@ -58,23 +58,7 @@ exports.postAddBook = (req, res) => {
       console.log("Created Book");
       res.redirect("/");
     })
-    .catch((err) => {
-      console.log(err);
-      res.redirect("/500");
-      // return res.status(500).render("admin/edit-book", {
-      //   pageTitle: "Add Book",
-      //   path: "/admin/add-book",
-      //   editing: false,
-      //   //book: book,
-      //   book: {
-      //     title: title,
-      //     imageUrl: imageUrl,
-      //     pages: pages,
-      //     description: description,
-      //   },
-      //   errorMessage: "Error occured",
-      // });
-    });
+    .catch((err) => console.log(err));
 }; // end postAddBook
 
 exports.getEditBook = (req, res) => {
