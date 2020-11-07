@@ -15,9 +15,21 @@ router.post(
   "/add-book",
   check("title")
     .isAlphanumeric()
+    // .custom((value, { req }) => {
+    //   console.log("33445 ", { req });
+    //   console.log("33499 ", value);
+    //   if (!value.match(/^[0-9a-z]+$/)) {
+    //     throw new Error("Error Title should be string");
+    //   }
+    // })
     .withMessage("Please Enter Alphanumeric Characters Only"),
   check("imageUrl").isURL().withMessage("Please Enter Valid URL"),
   check("pages").isInt().withMessage("Please Enter Valid Number of Pages"),
+  // .custom((value, { req }) => {
+  //   if (typeof value !== "number") {
+  //     throw new Error("Number of pages shoudl be number");
+  //   }
+  // }),
   adminController.postAddBook
 );
 
