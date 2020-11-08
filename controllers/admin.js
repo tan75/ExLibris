@@ -49,9 +49,11 @@ exports.postAddBook = (req, res) => {
     pages,
     description,
     imageUrl,
-    null,
+    //null,
+    () => {},
     req.user._id
   );
+
   book
     .save()
     .then(() => {

@@ -28,7 +28,7 @@ class Book {
         console.log(result);
       })
       .catch((err) => console.log(err));
-  }
+  } //end save()
 
   static fetchAll() {
     const db = getDb();

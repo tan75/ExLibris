@@ -29,10 +29,15 @@ app.use(flash());
 app.use((req, res, next) => {
   User.findById("5f9be35bdd3b1f017e4ebf99")
     .then((user) => {
+      if (!user) {
+        return next();
+      }
       req.user = new User(user._id, user.name, user.email, user.report);
       next();
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
 //app.use(flash);
