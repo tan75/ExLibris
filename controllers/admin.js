@@ -56,9 +56,9 @@ exports.postAddBook = (req, res, next) => {
     req.user._id
   );
 
+  // Error Handling
   if (title !== "string") {
-    next(AppError.badRequest("Wrong book title"));
-    console.log("hyyy ", book.title);
+    next(new AppError(500, "Invalid book title"));
     return;
   }
 

@@ -16,7 +16,7 @@ app.set("views", "views");
 const adminRoutes = require("./routes/admin");
 const libraryRoutes = require("./routes/library");
 const errorController = require("./controllers/error");
-const AppError = require("./models/AppError");
+const AppErrorController = require("./controllers/error");
 
 // Parses the url body and calls next()
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -47,7 +47,7 @@ app.use("/admin", adminRoutes);
 app.use(libraryRoutes);
 app.use(errorController.get404);
 
-app.use(AppError);
+app.use(AppErrorController.getAppError);
 
 mongoConnect(() => {
   app.listen(8000);

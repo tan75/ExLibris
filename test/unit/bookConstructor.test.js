@@ -25,10 +25,6 @@ test("book constructor should set propr correctly", () => {
   // probably should handle this kind of input data correctly and not to create a title Function?
   const book2 = new Book(() => {}, 123123123, { lol: "wtf" }, [], -1, [[]]);
   expect(book2.validate).toThrow(TypeError);
-
-  // expect(() => {
-  //   new Book(() => {}, 123123123, { lol: "wtf" }, [], -1, [[]]);
-  // }).toThrow("Book was not added");
 });
 
 // test("book constructor should generate _id if nothing passed", () => {

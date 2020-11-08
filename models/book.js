@@ -16,6 +16,7 @@ class Book {
     this.userId = userId;
   }
 
+  // Used for testing
   validate() {
     if (typeof this.title !== "string") {
       throw new AppError("Wrong title type");
@@ -27,12 +28,6 @@ class Book {
     let dbOp;
 
     if (this._id) {
-      // if (typeof id === "function") {
-      //   next(AppError.badRequest("Wrong user Id"));
-      //   console.log("hyyy ");
-      //   return;
-      // }
-
       dbOp = db
         .collection(collectionName)
         .updateOne({ _id: new mongoDb.ObjectID(this._id) }, { $set: this });
