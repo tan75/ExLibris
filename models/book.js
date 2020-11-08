@@ -1,6 +1,8 @@
 const getDb = require("../util/database").getDb;
 const mongoDb = require("mongodb");
 
+const AppError = require("./AppError");
+
 const collectionName = "books";
 
 class Book {
@@ -9,14 +11,28 @@ class Book {
     this.pages = pages;
     this.description = description;
     this.imageUrl = imageUrl;
-    this._id = id ? new mongoDb.ObjectID(id) : null;
+    //this._id = id ? new mongoDb.ObjectID(id) : null;
+    this._id = id ? id : null;
     this.userId = userId;
+  }
+
+  validate() {
+    if (typeof this.title !== "string") {
+      throw new AppError("Wrong title type");
+    }
   }
 
   save() {
     const db = getDb();
     let dbOp;
+
     if (this._id) {
+      // if (typeof id === "function") {
+      //   next(AppError.badRequest("Wrong user Id"));
+      //   console.log("hyyy ");
+      //   return;
+      // }
+
       dbOp = db
         .collection(collectionName)
         .updateOne({ _id: new mongoDb.ObjectID(this._id) }, { $set: this });
