@@ -1,5 +1,6 @@
 const Book = require("../models/book");
-const mongodb = require("mongodb");
+const AppError = require("../models/AppError");
+//const mongodb = require("mongodb");
 const { validationResult } = require("express-validator");
 
 exports.getAddBook = (req, res) => {
@@ -19,7 +20,7 @@ exports.getAddBook = (req, res) => {
   });
 };
 
-exports.postAddBook = (req, res) => {
+exports.postAddBook = (req, res, next) => {
   // req.query.edit - coming from the view => the name attribute of input tag
   const title = req.body.title;
   const imageUrl = req.body.imageUrl;
@@ -27,6 +28,7 @@ exports.postAddBook = (req, res) => {
   const description = req.body.description;
   const errors = validationResult(req);
   const editMode = req.query.edit;
+  const id = req.body.bookId;
 
   if (!errors.isEmpty()) {
     return res.status(422).render("admin/edit-book", {
@@ -45,13 +47,21 @@ exports.postAddBook = (req, res) => {
   }
 
   const book = new Book(
-    title,
+    //title,
+    () => {},
     pages,
     description,
     imageUrl,
     null,
     req.user._id
   );
+
+  // Error Handling
+  if (title !== "string") {
+    next(new AppError(500, "Invalid book title"));
+    return;
+  }
+
   book
     .save()
     .then(() => {

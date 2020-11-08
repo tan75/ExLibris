@@ -16,6 +16,7 @@ app.set("views", "views");
 const adminRoutes = require("./routes/admin");
 const libraryRoutes = require("./routes/library");
 const errorController = require("./controllers/error");
+const AppErrorController = require("./controllers/error");
 
 // Parses the url body and calls next()
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -29,10 +30,15 @@ app.use(flash());
 app.use((req, res, next) => {
   User.findById("5f9be35bdd3b1f017e4ebf99")
     .then((user) => {
+      if (!user) {
+        return next();
+      }
       req.user = new User(user._id, user.name, user.email, user.report);
       next();
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
 //app.use(flash);
@@ -40,6 +46,8 @@ app.use("/admin", adminRoutes);
 //app.use(flash);
 app.use(libraryRoutes);
 app.use(errorController.get404);
+
+app.use(AppErrorController.getAppError);
 
 mongoConnect(() => {
   app.listen(8000);

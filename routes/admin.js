@@ -27,7 +27,6 @@ router.post(
   "/edit-book",
   [
     check("title")
-      //.isLength({ max: 50 })
       .isAlphanumeric()
       .withMessage("Please Enter Alphanumeric Characters Only"),
     check("imageUrl").isURL().withMessage("Please Enter Valid URL"),
