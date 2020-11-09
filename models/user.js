@@ -60,6 +60,13 @@ class User {
 
     let newPages = 0;
     const updatedReportBooks = [...this.report.books];
+    let totalPagesRead;
+
+    if (this.report.books.length > 0) {
+      totalPagesRead = this.report.totalPages;
+    } else {
+      totalPagesRead = 0;
+    }
 
     // Check the if a book already exists
     // and add pages
@@ -74,10 +81,14 @@ class User {
         title: book.title,
         pages: +book.pages,
       });
+      newPages = book.pages;
     }
+
+    totalPagesRead = totalPagesRead + +book.pages;
 
     const updatedReport = {
       books: updatedReportBooks,
+      totalPages: totalPagesRead,
     };
 
     const db = getDb();
