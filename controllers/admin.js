@@ -17,8 +17,17 @@ exports.getAddBook = (req, res) => {
     path: "/admin/add-book",
     editing: false,
     errorMessage: message,
+    // to keep old user input
+    oldInput: {
+      book: {
+        title: "",
+        imageUrl: "",
+        pages: 0,
+        description: "",
+      },
+    },
   });
-};
+}; // end getAddBook
 
 exports.postAddBook = (req, res, next) => {
   // req.query.edit - coming from the view => the name attribute of input tag
@@ -35,7 +44,6 @@ exports.postAddBook = (req, res, next) => {
       pageTitle: "Add Book",
       path: "/admin/edit-book",
       editing: editMode,
-      //book: book,
       book: {
         title: title,
         imageUrl: imageUrl,
@@ -43,6 +51,15 @@ exports.postAddBook = (req, res, next) => {
         description: description,
       },
       errorMessage: errors.array()[0].msg,
+      // To keep old user input
+      oldInput: {
+        book: {
+          title: title,
+          imageUrl: imageUrl,
+          pages: pages,
+          description: description,
+        },
+      },
     });
   }
 
