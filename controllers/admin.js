@@ -47,8 +47,8 @@ exports.postAddBook = (req, res, next) => {
   }
 
   const book = new Book(
-    //title,
-    () => {},
+    title,
+    //() => {},  // title for testing constructor
     pages,
     description,
     imageUrl,
@@ -57,7 +57,7 @@ exports.postAddBook = (req, res, next) => {
   );
 
   // Error Handling
-  if (title !== "string") {
+  if (typeof book.title !== "string") {
     next(new AppError(500, "Invalid book title"));
     return;
   }

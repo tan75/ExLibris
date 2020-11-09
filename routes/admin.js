@@ -14,8 +14,8 @@ router.get("/books", adminController.getBooks);
 router.post(
   "/add-book",
   check("title")
-    .isAlphanumeric()
-    .withMessage("Please Enter Alphanumeric Characters Only"),
+    .isLength({ min: 3, max: 255 })
+    .withMessage("Min 3 Max 255 characters"),
   check("imageUrl").isURL().withMessage("Please Enter Valid URL"),
   check("pages").isInt().withMessage("Please Enter Valid Number of Pages"),
   adminController.postAddBook
@@ -27,8 +27,8 @@ router.post(
   "/edit-book",
   [
     check("title")
-      .isAlphanumeric()
-      .withMessage("Please Enter Alphanumeric Characters Only"),
+      .isLength({ min: 3, max: 255 })
+      .withMessage("Min 3 Max 255 characters"),
     check("imageUrl").isURL().withMessage("Please Enter Valid URL"),
     check("pages").isInt().withMessage("Please Enter Valid Number of Pages"),
   ],
