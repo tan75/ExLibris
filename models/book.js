@@ -1,7 +1,7 @@
 const getDb = require("../util/database").getDb;
 const mongoDb = require("mongodb");
 
-const AppError = require("./AppError");
+const AppError = require("./appError");
 
 const collectionName = "books";
 

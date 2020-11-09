@@ -1,5 +1,5 @@
 const Book = require("../models/book");
-const AppError = require("../models/AppError");
+const AppError = require("../models/appError");
 //const mongodb = require("mongodb");
 const { validationResult } = require("express-validator");
 

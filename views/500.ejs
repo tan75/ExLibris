@@ -3,7 +3,9 @@
 
 <body>
   <%- include('includes/navigation.ejs') %>
-  <h1>Something went wrong</h1>
-  <p><%= errorMessage %></p>
-  <p>We are working on it</p>
+  <main>
+    <h3>Something went wrong and we are working on it</h3>
+    <h3>Error:</h3>
+    <p>--- <%= errorMessage %> ---</p>
+  </main>
   <%- include('includes/end.ejs') %>

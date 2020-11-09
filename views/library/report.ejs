@@ -6,11 +6,13 @@
    <%- include('../includes/navigation.ejs') %>
 <main>
   <% if (books.length > 0) { %>
+    <p>Book Name / Total Pages</p>
     <ul>
       <% books.forEach(b => { %>
         <li><%= b.title %> (<%= b.pages %>) </li>
       <% }) %>
     </ul>
+    <p>Total Pages: TBD</p>
   <% } else { %>
     <h1>No Books in the Report</h1>
   <% } %>
