@@ -4,7 +4,7 @@ ExLibris is a reading list app that allows you to log books you have read and tr
 
 ## How to install
 
-Download the code from this repo and open it a NodeJS project.
+Download the code from this repo and open it as a NodeJS project.
 
 ## How to run
 
