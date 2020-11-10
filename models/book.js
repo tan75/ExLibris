@@ -1,7 +1,7 @@
 const getDb = require("../util/database").getDb;
 const mongoDb = require("mongodb");
 
-const AppError = require("./AppError");
+const AppError = require("./appError");
 
 const collectionName = "books";
 
@@ -18,8 +18,8 @@ class Book {
 
   // Used for testing
   validate() {
-    if (typeof this.title !== "string") {
-      throw new AppError("Wrong title type");
+    if (typeof this.title !== "string" || typeof this === "undefined") {
+      throw new AppError(500, "Wrong title data type");
     }
   }
 

@@ -1,5 +1,5 @@
 const Book = require("../models/book");
-const AppError = require("../models/AppError");
+const AppError = require("../models/appError");
 //const mongodb = require("mongodb");
 const { validationResult } = require("express-validator");
 
@@ -17,8 +17,17 @@ exports.getAddBook = (req, res) => {
     path: "/admin/add-book",
     editing: false,
     errorMessage: message,
+    // to keep old user input
+    oldInput: {
+      book: {
+        title: "",
+        imageUrl: "",
+        pages: 0,
+        description: "",
+      },
+    },
   });
-};
+}; // end getAddBook
 
 exports.postAddBook = (req, res, next) => {
   // req.query.edit - coming from the view => the name attribute of input tag
@@ -35,7 +44,6 @@ exports.postAddBook = (req, res, next) => {
       pageTitle: "Add Book",
       path: "/admin/edit-book",
       editing: editMode,
-      //book: book,
       book: {
         title: title,
         imageUrl: imageUrl,
@@ -43,12 +51,21 @@ exports.postAddBook = (req, res, next) => {
         description: description,
       },
       errorMessage: errors.array()[0].msg,
+      // To keep old user input
+      oldInput: {
+        book: {
+          title: title,
+          imageUrl: imageUrl,
+          pages: pages,
+          description: description,
+        },
+      },
     });
   }
 
   const book = new Book(
     //title,
-    () => {},
+    () => {}, // title for testing constructor
     pages,
     description,
     imageUrl,
@@ -57,10 +74,32 @@ exports.postAddBook = (req, res, next) => {
   );
 
   // Error Handling
-  if (title !== "string") {
+  if (typeof book.title !== "string") {
     next(new AppError(500, "Invalid book title"));
     return;
   }
+
+  if (typeof pages !== "number") {
+    next(new AppError(500, "Invalid page number"));
+    return;
+  }
+
+  if (typeof description !== "string") {
+    next(new AppError(500, "Invalid book description"));
+    return;
+  }
+
+  if (typeof imageUrl !== "string") {
+    next(new AppError(500, "Invalid image URL"));
+    return;
+  }
+
+  if (typeof req.user._id !== "object") {
+    next(new AppError(500, "Invalid user ID"));
+    return;
+  }
+
+  // End Error handling
 
   book
     .save()
