@@ -21,10 +21,17 @@ test("book constructor should set propr correctly", () => {
   expect(book1.imageUrl).toBe(imageUrl);
   expect(book1._id).toBe(null);
   expect(book1.userId).toBe("5f9be35bdd3b1f017e4ebf99");
+});
 
-  // probably should handle this kind of input data correctly and not to create a title Function?
+test("validate() should throw AppError", () => {
   const book2 = new Book(() => {}, 123123123, { lol: "wtf" }, [], -1, [[]]);
-  expect(book2.validate).toThrow(TypeError);
+  let error;
+  try {
+    book2.validate();
+  } catch (e) {
+    error = e;
+  }
+  expect(error).toBeInstanceOf(AppError);
 });
 
 // test("book constructor should generate _id if nothing passed", () => {
