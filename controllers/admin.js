@@ -64,8 +64,8 @@ exports.postAddBook = (req, res, next) => {
   }
 
   const book = new Book(
-    title,
-    //() => {},  // title for testing constructor
+    //title,
+    () => {}, // title for testing constructor
     pages,
     description,
     imageUrl,
