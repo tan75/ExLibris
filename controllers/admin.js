@@ -79,6 +79,28 @@ exports.postAddBook = (req, res, next) => {
     return;
   }
 
+  if (typeof pages !== "number") {
+    next(new AppError(500, "Invalid page number"));
+    return;
+  }
+
+  if (typeof description !== "string") {
+    next(new AppError(500, "Invalid book description"));
+    return;
+  }
+
+  if (typeof imageUrl !== "string") {
+    next(new AppError(500, "Invalid image URL"));
+    return;
+  }
+
+  if (typeof req.user._id !== "object") {
+    next(new AppError(500, "Invalid user ID"));
+    return;
+  }
+
+  // End Error handling
+
   book
     .save()
     .then(() => {
