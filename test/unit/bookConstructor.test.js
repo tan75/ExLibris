@@ -24,8 +24,10 @@ const mockInsertOne = jest.fn(() => ({
 }));
 
 const mockFind = jest.fn(() => ({
-  then: jest.fn(() => ({
-    catch: jest.fn(),
+  toArray: jest.fn(() => ({
+    then: jest.fn(() => ({
+      catch: jest.fn(),
+    })),
   })),
 }));
 
