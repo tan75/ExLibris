@@ -15,6 +15,15 @@ const AppError = require("../../models/appError");
 //       })
 //    })
 // }
+
+// const mockUpdateOne = jest.fn(() => {
+//   return {
+//     then: jest.fn(() => {
+//       return { catch: jest.fn() };
+//     }),
+//   };
+// });
+
 const mockUpdateOne = jest.fn(() => ({
   then: jest.fn(() => ({ catch: jest.fn() })),
 }));
@@ -23,26 +32,53 @@ const mockInsertOne = jest.fn(() => ({
   then: jest.fn(() => ({ catch: jest.fn() })),
 }));
 
-const mockFind = jest.fn(() => ({
-  toArray: jest.fn(() => ({
-    then: jest.fn(() => ({
-      catch: jest.fn(),
+const mockFind = jest.fn(() => {
+  console.log("This this mockFind");
+  return {
+    toArray: jest.fn(() => ({
+      then: jest.fn(() => ({
+        catch: jest.fn(),
+      })),
     })),
-  })),
-}));
+    next: jest.fn(() => {
+      return {
+        then: jest.fn(() => {
+          return { catch: jest.fn() };
+        }),
+      };
+    }),
+  };
+});
+
+const mockFindById = jest.fn(() => {
+  console.log("This is mockFindById");
+  return {
+    next: jest.fn(() => {
+      console.log("next ", next);
+      return {
+        then: jest.fn(() => ({
+          catch: jest.fn(),
+        })),
+      };
+    }),
+  };
+});
 
 const mockCollection = jest.fn(() => ({
   updateOne: mockUpdateOne,
   insertOne: mockInsertOne,
   find: mockFind,
+  findById: mockFindById,
 }));
 
 // mock the library
 // more here https://jestjs.io/docs/en/mock-functions.html
 jest.mock("../../util/database", () => ({
-  getDb: jest.fn(() => ({
-    collection: mockCollection,
-  })),
+  getDb: jest.fn(() => {
+    return {
+      collection: mockCollection,
+    };
+  }),
 }));
 
 const imageUrl =
@@ -53,7 +89,7 @@ beforeEach(() => {
   jest.clearAllMocks();
 });
 
-test("book constructor should set props correctly", () => {
+test.skip("book constructor should set props correctly", () => {
   const book1 = new Book(
     "Title",
     155,
@@ -70,7 +106,7 @@ test("book constructor should set props correctly", () => {
   expect(book1.userId).toBe("5f9be35bdd3b1f017e4ebf99");
 });
 
-test("validate() should throw AppError", () => {
+test.skip("validate() should throw AppError", () => {
   const book2 = new Book(() => {}, 123123123, { lol: "wtf" }, [], -1, [[]]);
   let error;
   try {
@@ -81,7 +117,7 @@ test("validate() should throw AppError", () => {
   expect(error).toBeInstanceOf(AppError);
 });
 
-test("save() should execute correct insert if needed", () => {
+test.skip("save() should execute correct insert if needed", () => {
   const book1 = new Book(
     "Title",
     155,
@@ -98,7 +134,7 @@ test("save() should execute correct insert if needed", () => {
   expect(mockInsertOne).toHaveBeenCalledWith(book1);
 });
 
-test("save() should execute correct update if needed", () => {
+test.skip("save() should execute correct update if needed", () => {
   const book1 = new Book(
     "Title",
     155,
@@ -118,11 +154,28 @@ test("save() should execute correct update if needed", () => {
   );
 });
 
-test("fetchAll() should execute correct find if needed", () => {
+test.skip("fetchAll() should execute correct find if needed", () => {
   Book.fetchAll();
   expect(database.getDb).toHaveBeenCalled();
   expect(mockCollection).toHaveBeenCalledWith("books");
-  //expect(mockFind).toHaveReturned(); // what?
+  expect(mockFind).toHaveBeenCalled();
+});
+
+test("findById() should execute correct find if needed", () => {
+  const book1 = new Book(
+    "Title",
+    155,
+    "Description 1",
+    "test",
+    "83e0ed3570b042e3aee48a75",
+    "5f9be35bdd3b1f017e4ebf99"
+  );
+
+  const bookId = Book.findById(book1._id);
+  expect(database.getDb).toHaveBeenCalled();
+  expect(mockCollection).toHaveBeenCalledWith("books");
+  //expect(mockFind).toHaveBeenCalledWith(bookId);
+  expect(mockFindById).toHaveBeenCalled();
 });
 
 // test("book constructor should generate _id if nothing passed", () => {
