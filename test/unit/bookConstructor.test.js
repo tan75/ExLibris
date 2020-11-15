@@ -16,14 +16,6 @@ const AppError = require("../../models/appError");
 //    })
 // }
 
-// const mockUpdateOne = jest.fn(() => {
-//   return {
-//     then: jest.fn(() => {
-//       return { catch: jest.fn() };
-//     }),
-//   };
-// });
-
 const mockUpdateOne = jest.fn(() => ({
   then: jest.fn(() => ({ catch: jest.fn() })),
 }));
