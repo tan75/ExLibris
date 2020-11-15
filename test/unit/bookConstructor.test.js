@@ -32,8 +32,11 @@ const mockInsertOne = jest.fn(() => ({
   then: jest.fn(() => ({ catch: jest.fn() })),
 }));
 
+const mockDeleteOne = jest.fn(() => ({
+  then: jest.fn(() => ({ catch: jest.fn() })),
+}));
+
 const mockFind = jest.fn(() => {
-  console.log("This this mockFind");
   return {
     toArray: jest.fn(() => ({
       then: jest.fn(() => ({
@@ -50,30 +53,11 @@ const mockFind = jest.fn(() => {
   };
 });
 
-const mockFindById = jest.fn(() => {
-  console.log("This is mockFindById");
-  return {
-    next: jest.fn(() => {
-      console.log("next ", next);
-      return {
-        then: jest.fn(() => ({
-          catch: jest.fn(),
-        })),
-      };
-    }),
-  };
-});
-
-const mockNext = jest.fn(() => ({
-  then: jest.fn(() => ({ catch: jest.fn() })),
-}));
-
 const mockCollection = jest.fn(() => ({
   updateOne: mockUpdateOne,
   insertOne: mockInsertOne,
   find: mockFind,
-  findById: mockFindById,
-  next: mockNext,
+  deleteOne: mockDeleteOne,
 }));
 
 // mock the library
@@ -94,7 +78,7 @@ beforeEach(() => {
   jest.clearAllMocks();
 });
 
-test.skip("book constructor should set props correctly", () => {
+test("book constructor should set props correctly", () => {
   const book1 = new Book(
     "Title",
     155,
@@ -111,7 +95,7 @@ test.skip("book constructor should set props correctly", () => {
   expect(book1.userId).toBe("5f9be35bdd3b1f017e4ebf99");
 });
 
-test.skip("validate() should throw AppError", () => {
+test("validate() should throw AppError", () => {
   const book2 = new Book(() => {}, 123123123, { lol: "wtf" }, [], -1, [[]]);
   let error;
   try {
@@ -122,7 +106,7 @@ test.skip("validate() should throw AppError", () => {
   expect(error).toBeInstanceOf(AppError);
 });
 
-test.skip("save() should execute correct insert if needed", () => {
+test("save() should execute correct insert if needed", () => {
   const book1 = new Book(
     "Title",
     155,
@@ -139,7 +123,7 @@ test.skip("save() should execute correct insert if needed", () => {
   expect(mockInsertOne).toHaveBeenCalledWith(book1);
 });
 
-test.skip("save() should execute correct update if needed", () => {
+test("save() should execute correct update if needed", () => {
   const book1 = new Book(
     "Title",
     155,
@@ -159,7 +143,7 @@ test.skip("save() should execute correct update if needed", () => {
   );
 });
 
-test.skip("fetchAll() should execute correct find if needed", () => {
+test("fetchAll() should execute correct find if needed", () => {
   Book.fetchAll();
   expect(database.getDb).toHaveBeenCalled();
   expect(mockCollection).toHaveBeenCalledWith("books");
@@ -176,11 +160,30 @@ test("findById() should execute correct find if needed", () => {
     "5f9be35bdd3b1f017e4ebf99"
   );
 
-  const bookId = Book.findById(book1._id);
+  Book.findById(book1._id);
   expect(database.getDb).toHaveBeenCalled();
   expect(mockCollection).toHaveBeenCalledWith("books");
-  //expect(mockFind).toHaveBeenCalledWith(bookId);
-  expect(mockFindById).toHaveBeenCalled();
+  expect(mockFind).toHaveBeenCalledWith({
+    _id: new ObjectID("83e0ed3570b042e3aee48a75"),
+  });
+});
+
+test("deleteById() should execute correct deleteOne if needed", () => {
+  const book1 = new Book(
+    "Title",
+    155,
+    "Description 1",
+    "test",
+    "83e0ed3570b042e3aee48a75",
+    "5f9be35bdd3b1f017e4ebf99"
+  );
+
+  Book.deleteById(book1._id);
+  expect(database.getDb).toHaveBeenCalled();
+  expect(mockCollection).toHaveBeenCalledWith("books");
+  expect(mockDeleteOne).toHaveBeenCalledWith({
+    _id: new ObjectID("83e0ed3570b042e3aee48a75"),
+  });
 });
 
 // test("book constructor should generate _id if nothing passed", () => {
