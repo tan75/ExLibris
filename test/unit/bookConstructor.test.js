@@ -64,11 +64,16 @@ const mockFindById = jest.fn(() => {
   };
 });
 
+const mockNext = jest.fn(() => ({
+  then: jest.fn(() => ({ catch: jest.fn() })),
+}));
+
 const mockCollection = jest.fn(() => ({
   updateOne: mockUpdateOne,
   insertOne: mockInsertOne,
   find: mockFind,
   findById: mockFindById,
+  next: mockNext,
 }));
 
 // mock the library
