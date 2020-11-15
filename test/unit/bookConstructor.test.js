@@ -177,8 +177,3 @@ test("deleteById() should execute correct deleteOne if needed", () => {
     _id: new ObjectID("83e0ed3570b042e3aee48a75"),
   });
 });
-
-// test("book constructor should generate _id if nothing passed", () => {
-//   //const book1 = new Book('blah', 'pew’, 'aaaaa', 'test', 123, '04124');
-//   expect(book1._id).toBe(typeof ObjectID); // probably will throw an error, should you handle that?
-// });
