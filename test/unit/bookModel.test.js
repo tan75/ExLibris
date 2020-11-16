@@ -70,7 +70,7 @@ beforeEach(() => {
   jest.clearAllMocks();
 });
 
-test("book constructor should set props correctly", () => {
+test("Book constructor should set props correctly", () => {
   const book1 = new Book(
     "Title",
     155,
