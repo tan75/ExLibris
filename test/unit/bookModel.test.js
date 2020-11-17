@@ -126,7 +126,6 @@ test("save() should execute correct update if needed", () => {
   );
 
   book1.save();
-
   expect(database.getDb).toHaveBeenCalled();
   expect(mockCollection).toHaveBeenCalledWith("books");
   expect(mockUpdateOne).toHaveBeenCalledWith(
