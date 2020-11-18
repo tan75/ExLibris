@@ -32,7 +32,8 @@
     "express-session": "^1.17.1",
     "express-validator": "^6.6.1",
     "mongodb": "^3.6.2",
-    "ndb": "^1.1.5"
+    "ndb": "^1.1.5",
+    "yargs": "^16.1.1"
   },
   "devDependencies": {
     "@shelf/jest-mongodb": "^1.2.3",
