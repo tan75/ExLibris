@@ -2,11 +2,20 @@ const mongodb = require("mongodb");
 
 const MongoClient = mongodb.MongoClient;
 
+var argv = require("yargs/yargs")(process.argv.slice(2)).argv;
+
+// Build connection string
+const dbUser = argv._[0];
+const dbPassword = argv._[1];
+
 const dbUrl =
-  "mongodb+srv://libuser:libuser@exlibris.9bzwu.mongodb.net/exlibris?retryWrites=true&w=majority";
+  "mongodb+srv://" +
+  dbUser +
+  ":" +
+  dbPassword +
+  "@exlibris.9bzwu.mongodb.net/exlibris?retryWrites=true&w=majority";
 
 let _db;
-
 const mongoConnect = (callback) => {
   MongoClient.connect(dbUrl)
     .then((client) => {
