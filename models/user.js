@@ -68,12 +68,12 @@ class User {
       totalPagesRead = 0;
     }
 
-    // Check the if a book already exists
+    // Check the if the book already exists
     // and add pages
     if (reportBookIndex >= 0) {
+      // TT 20201120 book.pages will get the currect page number
       newPages =
-        Math.floor(this.report.books[reportBookIndex].pages) +
-        Math.floor(this.report.books[reportBookIndex].pages);
+        Math.floor(this.report.books[reportBookIndex].pages) + book.pages;
       updatedReportBooks[reportBookIndex].pages = newPages;
     } else {
       updatedReportBooks.push({

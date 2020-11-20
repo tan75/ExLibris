@@ -11,8 +11,8 @@ class Book {
     this.pages = pages;
     this.description = description;
     this.imageUrl = imageUrl;
-    //this._id = id ? new mongoDb.ObjectID(id) : null;
-    this._id = id ? id : null;
+    this._id = id ? new mongoDb.ObjectID(id) : null;
+    //this._id = id ? id : null;
     this.userId = userId;
   }
 
