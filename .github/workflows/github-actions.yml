@@ -5,18 +5,14 @@ on:
     branches: [dev1]
 jobs:
   build_job:
-    name: Build
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-        - uses: actions/setup-node@v1
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
   install_dependancies_job:
-    name: Install dependancies
-      steps:
-        - run: npm install
-        - run: npm install jest
+    steps:
+      - run: npm install
+      - run: npm install jest
   run_tests_job:
-    name: Run tests
-      steps:
-        - run: npm test
-
+    steps:
+      - run: npm test
