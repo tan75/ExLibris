@@ -4,12 +4,16 @@ on:
   push:
     branches: [dev1]
 jobs:
-  run-tests:
+  name: Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
+  name: Install dependancies
+    steps:
       - run: npm install
       - run: npm install jest
+  name: Run tests
+    steps:
       - run: npm test
-      - run: npm install
+
