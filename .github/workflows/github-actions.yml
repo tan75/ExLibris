@@ -10,11 +10,11 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
   install_dependancies_job:
-  runs-on: ubuntu-latest
-    steps:
-      - run: npm install
-      - run: npm install jest
+    runs-on: ubuntu-latest
+      steps:
+        - run: npm install
+        - run: npm install jest
   run_tests_job:
-  runs-on: ubuntu-latest
-    steps:
-      - run: npm test
+    runs-on: ubuntu-latest
+      steps:
+        - run: npm test
