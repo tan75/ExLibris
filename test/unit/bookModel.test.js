@@ -125,7 +125,7 @@ test("save() should execute correct update if needed", () => {
     "5f9be35bdd3b1f017e4ebf99"
   );
 
-  book1.save();
+  book1.save1();
   expect(database.getDb).toHaveBeenCalled();
   expect(mockCollection).toHaveBeenCalledWith("books");
   expect(mockUpdateOne).toHaveBeenCalledWith(
