@@ -9,6 +9,7 @@
   width: 20rem;
   max-width: 95%;
   margin: 0.5rem;
+  border-radius: 10px;
 }
 
 .book__title {

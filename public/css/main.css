@@ -151,6 +151,7 @@ form {
 .card__header,
 .card__content {
   padding: 1rem;
+  border-radius: 10px;
 }
 
 .card__header h1,
@@ -166,6 +167,7 @@ form {
 
 .card__image img {
   width: 100%;
+  border-radius: 10px;
 }
 
 .card__actions {
@@ -185,6 +187,7 @@ form {
   border-radius: 3px;
   color: #3e00a1;
   cursor: pointer;
+  padding: 0.5em;
 }
 
 .btn:hover,
