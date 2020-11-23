@@ -12,9 +12,16 @@
         <li><%= b.title %> (<%= b.pages %>) </li>
       <% }) %>
     </ul>
-    <p>Total Pages: TBD</p>
+
   <% } else { %>
     <h1>No Books in the Report</h1>
+  <% } %>
+  <% if (totalPages !== 0) { %>
+  <p>Total Pages in the Report:</p>
+  <p><%= totalPages %></p>
+  <% } else { %>
+    <p>Total Pages in the Report:</p>
+    <p> 0 </p>
   <% } %>
 </main>
 

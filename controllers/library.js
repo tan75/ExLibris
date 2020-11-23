@@ -45,6 +45,7 @@ exports.getReport = (req, res) => {
         path: "/report",
         pageTitle: "Your Reading Report",
         books: reportBooks,
+        totalPages: req.user.report.totalPages,
       });
     })
     .catch((err) => console.log(err));
