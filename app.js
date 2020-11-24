@@ -1,9 +1,12 @@
+// Core modules
 const path = require("path");
+const fs = require("fs");
 
 const express = require("express");
 const bodyParser = require("body-parser");
 const flash = require("connect-flash");
 const session = require("express-session");
+const morgan = require("morgan");
 
 const mongoConnect = require("./util/database").mongoConnect;
 const User = require("./models/user");
@@ -17,6 +20,12 @@ const adminRoutes = require("./routes/admin");
 const libraryRoutes = require("./routes/library");
 const errorController = require("./controllers/error");
 const AppErrorController = require("./controllers/error");
+
+const accessLogStream = fs.createWriteStream(
+  path.join(__dirname, "access.log"),
+  { flags: "a" } // append
+);
+app.use(morgan("combined", { stream: accessLogStream }));
 
 // Parses the url body and calls next()
 app.use(bodyParser.urlencoded({ extended: false }));
