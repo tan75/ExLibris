@@ -1,0 +1,12 @@
+.report__card {
+  width: 60vmax;
+  height: 20vmax;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  margin: 0.5 em;
+}
+
+.report__card p {
+  left: 1em;
+  top: 1em;
+  position: relative;
+}
