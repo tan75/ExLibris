@@ -5,10 +5,10 @@ const MongoClient = mongodb.MongoClient;
 var argv = require("yargs/yargs")(process.argv.slice(2)).argv;
 
 // Build connection string
-// const dbUser = argv._[0];
-// const dbPassword = argv._[1];
-const dbUser = "libuser";
-const dbPassword = "libuserrr";
+const dbUser = argv._[0];
+const dbPassword = argv._[1];
+// const dbUser = "libuser";
+// const dbPassword = "libuserrr";
 
 const dbUrl =
   "mongodb+srv://" +
