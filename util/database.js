@@ -1,21 +1,12 @@
 const mongodb = require("mongodb");
-
 const MongoClient = mongodb.MongoClient;
-
-var argv = require("yargs/yargs")(process.argv.slice(2)).argv;
+require('dotenv/config');  // to load variables from .env file
 
 // Build connection string
-const dbUser = argv._[0];
-const dbPassword = argv._[1];
-// const dbUser = "libuser";
-// const dbPassword = "libuserrr";
-
-const dbUrl =
-  "mongodb+srv://" +
-  dbUser +
-  ":" +
-  dbPassword +
-  "@exlibris.9bzwu.mongodb.net/exlibris?retryWrites=true&w=majority";
+const dbUser = process.env.DB_USER;
+const dbPassword = process.env.DB_PASSWORD;
+const dbHost = process.env.DB_HOST;
+const dbUrl ="mongodb+srv://" + dbUser + ":" + dbPassword + dbHost;
 
 let _db;
 const mongoConnect = (callback) => {
