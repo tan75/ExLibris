@@ -3,24 +3,17 @@ const Book = require("../models/book");
 exports.getBooks = (req, res) => {
   Book.fetchAll()
     .then((books) => {
-      res.render("library/book-list", {
-        bks: books,
-        pageTitle: "All Books",
-        path: "/books",
-      });
+      res.json({books});
     })
     .catch((err) => console.log(err));
 };
 
+// http://localhost:8000/books/5f97477af8cb963cd355519b
 exports.getBook = (req, res) => {
   const bookId = req.params.bookId; // comes from the route
   Book.findById(bookId)
     .then((book) => {
-      res.render("library/book-detail", {
-        book: book,
-        pageTitle: book.title,
-        path: "/books",
-      });
+      res.json({book})
     })
     .catch((err) => console.log(err));
 };
@@ -28,11 +21,7 @@ exports.getBook = (req, res) => {
 exports.getIndex = (req, res) => {
   Book.fetchAll()
     .then((books) => {
-      res.render("library/index", {
-        bks: books,
-        pageTitle: "Home",
-        path: "/",
-      });
+      res.json({books});
     })
     .catch((err) => console.log(err));
 };
