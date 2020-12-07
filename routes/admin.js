@@ -35,6 +35,6 @@ router.post(
   adminController.postEditBook
 );
 
-router.post("/delete-book", adminController.postDeleleBook);
+router.post("/delete-book", adminController.postDeleteBook);
 
 module.exports = router;

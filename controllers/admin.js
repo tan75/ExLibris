@@ -39,7 +39,9 @@ exports.postAddBook = (req, res, next) => {
   const editMode = req.query.edit;
   const id = req.body.bookId;
 
+  console.log('5556 ', req.body);
   if (!errors.isEmpty()) {
+    console.log('5544 ', errors)
     return res.status(422).render("admin/edit-book", {
       pageTitle: "Add Book",
       path: "/admin/edit-book",
@@ -107,7 +109,8 @@ exports.postAddBook = (req, res, next) => {
     .save()
     .then(() => {
       console.log("Created Book");
-      res.redirect("/");
+      //res.redirect("/");
+      res.status(201).send('Book has been added successfully')
     })
     .catch((err) => console.log(err));
 }; // end postAddBook
@@ -125,13 +128,14 @@ exports.getEditBook = (req, res) => {
       if (!book) {
         return res.redirect("/");
       }
-      res.render("admin/edit-book", {
-        pageTitle: "Edit Book",
-        path: "/admin/edit-book",
-        editing: editMode,
-        book: book,
-        errorMessage: "",
-      });
+      // res.render("admin/edit-book", {
+      //   pageTitle: "Edit Book",
+      //   path: "/admin/edit-book",
+      //   editing: editMode,
+      //   book: book,
+      //   errorMessage: "",
+      // });
+      res.status(201).send('Book has been edited successfully')
     })
     .catch((err) => console.log(err));
 }; // end getEditBook
@@ -190,12 +194,14 @@ exports.getBooks = (req, res) => {
     .catch((err) => console.log(err));
 };
 
-exports.postDeleleBook = (req, res) => {
+exports.postDeleteBook = (req, res) => {
   const bookId = req.body.bookId;
+  console.log('7788 ', bookId );
   Book.deleteById(bookId)
     .then(() => {
       console.log("Book Deleted");
-      res.redirect("/admin/books");
+      // res.redirect("/admin/books");
+      res.status(201).send('Book Deleted');
     })
     .catch((err) => console.log(err));
 };
