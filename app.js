@@ -28,7 +28,9 @@ const accessLogStream = fs.createWriteStream(
 app.use(morgan("combined", { stream: accessLogStream }));
 
 // Parses the url body and calls next()
-app.use(bodyParser.urlencoded({ extended: false }));
+//app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 app.use(express.static(path.join(__dirname, "public"))); // to serve static files like css files
 app.use(
   session({ secret: "my secret", resave: false, saveUninitialized: false })

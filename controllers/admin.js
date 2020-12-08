@@ -39,7 +39,7 @@ exports.postAddBook = (req, res, next) => {
   const editMode = req.query.edit;
   const id = req.body.bookId;
 
-  console.log('5556 ', req.body);
+  console.log('5556 ', req.body.title);
   if (!errors.isEmpty()) {
     console.log('5544 ', errors)
     return res.status(422).render("admin/edit-book", {
@@ -128,14 +128,13 @@ exports.getEditBook = (req, res) => {
       if (!book) {
         return res.redirect("/");
       }
-      // res.render("admin/edit-book", {
-      //   pageTitle: "Edit Book",
-      //   path: "/admin/edit-book",
-      //   editing: editMode,
-      //   book: book,
-      //   errorMessage: "",
-      // });
-      res.status(201).send('Book has been edited successfully')
+      res.render("admin/edit-book", {
+        pageTitle: "Edit Book",
+        path: "/admin/edit-book",
+        editing: editMode,
+        book: book,
+        errorMessage: "",
+      });
     })
     .catch((err) => console.log(err));
 }; // end getEditBook
@@ -149,20 +148,21 @@ exports.postEditBook = (req, res) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    return res.status(422).render("admin/edit-book", {
-      pageTitle: "Edit Book",
-      path: "/admin/edit-book",
-      editing: "true",
-      hasError: true,
-      //book: book,
-      book: {
-        title: updatedTitle,
-        imageUrl: updatedImageUrl,
-        pages: updatedPages,
-        description: updatedDescription,
-      },
-      errorMessage: errors.array()[0].msg,
-    });
+    // return res.status(422).render("admin/edit-book", {
+    //   pageTitle: "Edit Book",
+    //   path: "/admin/edit-book",
+    //   editing: "true",
+    //   hasError: true,
+    //   //book: book,
+    //   book: {
+    //     title: updatedTitle,
+    //     imageUrl: updatedImageUrl,
+    //     pages: updatedPages,
+    //     description: updatedDescription,
+    //   },
+    //   errorMessage: errors.array()[0].msg,
+    // });
+    return res.status(201).send('Book has been edited successfully')
   }
 
   const book = new Book(
@@ -177,7 +177,8 @@ exports.postEditBook = (req, res) => {
     .save()
     .then(() => {
       console.log("Updated Book!");
-      res.redirect("/admin/books");
+      //res.redirect("/admin/books");
+      res.status(200).json('Book Updated')
     })
     .catch((err) => console.log(err));
 }; // end postEditBook
@@ -196,12 +197,11 @@ exports.getBooks = (req, res) => {
 
 exports.postDeleteBook = (req, res) => {
   const bookId = req.body.bookId;
-  console.log('7788 ', bookId );
   Book.deleteById(bookId)
     .then(() => {
       console.log("Book Deleted");
       // res.redirect("/admin/books");
-      res.status(201).send('Book Deleted');
+      res.status(200).json({bookId});
     })
     .catch((err) => console.log(err));
 };
