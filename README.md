@@ -29,3 +29,25 @@ Run the below code in your terminal:
   [Library](http://localhost:8000/)
 - Access your report here:
   [Report](http://localhost:8000/report)
+
+## API reference
+
+The ExLibris API is organozed around REST.
+This API accepts JSON request bodies, returns JSON-encoded responses and uses standard HTTP response codes.
+
+### HTTP status codes summary
+
+**200** - OK. All is working as expected.
+**201** - OK. Item has beed added/modified successfully.
+**400** - NOT OK. Bad request.
+
+### Request formats
+
+#### Get Book
+
+**Method** : GET
+**URL Structure example**: https://gobananas.work/books/5f97477af8cb963cd355519b
+**Response Example**:
+`{ "book": { "_id": "5f97477af8cb963cd355519b", "title": "JavaScript: Good Parts1. ", "pages": "1", "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Noo00", "imageUrl": "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fimages.hellogiggles.com%2Fuploads%2F2016%2F12%2F18043538%2Fshutterstock_91553819.jpg&f=1&nofb=1", "userId": null }`
+**Request Example**
+`curl 'https://gobananas.work/books' \ --header 'Content-Type: application/json' \ --compressed`
