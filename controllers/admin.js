@@ -146,6 +146,7 @@ exports.postEditBook = (req, res) => {
   const updatedImageUrl = req.body.imageUrl;
   const updatedDescription = req.body.description;
   const errors = validationResult(req);
+    console.log('987 ', bookId);
 
   if (!errors.isEmpty()) {
     // return res.status(422).render("admin/edit-book", {
@@ -162,7 +163,7 @@ exports.postEditBook = (req, res) => {
     //   },
     //   errorMessage: errors.array()[0].msg,
     // });
-    return res.status(201).send('Book has been edited successfully')
+    return res.status(201).json({bookId})
   }
 
   const book = new Book(
@@ -178,7 +179,7 @@ exports.postEditBook = (req, res) => {
     .then(() => {
       console.log("Updated Book!");
       //res.redirect("/admin/books");
-      res.status(200).json('Book Updated')
+      res.status(200).json({bookId})
     })
     .catch((err) => console.log(err));
 }; // end postEditBook
