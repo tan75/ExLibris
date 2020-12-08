@@ -5,6 +5,7 @@ ExLibris is a reading list app that allows you to log books you have read and tr
 ## Technologies used:
 
 Web App: html/CSS, JavaScript, NodeJS
+
 Testing: Jest
 
 ## How to install
@@ -38,12 +39,12 @@ This API accepts JSON request bodies, returns JSON-encoded responses and uses st
 ### HTTP status codes summary
 
 **200** - OK. All is working as expected.
+
 **201** - OK. Item has beed added/modified successfully.
+
 **400** - NOT OK. Bad request.
 
 ### Request formats
-
-#### Get Book
 
 **Method** : GET
 
@@ -63,4 +64,5 @@ This API accepts JSON request bodies, returns JSON-encoded responses and uses st
 ```
 
 **Request Example**
+
 `curl 'https://gobananas.work/books' \ --header 'Content-Type: application/json' \ --compressed`
