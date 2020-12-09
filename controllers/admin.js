@@ -1,13 +1,10 @@
 const Book = require("../models/book");
-const AppError = require("../models/appError");
-//const mongodb = require("mongodb");
 
 exports.getAddBook = (req, res) => {
-  res.json({});
+  res.status(200).header("Access-Control-Allow-Origin", "*").json({});
 };
 
 exports.postAddBook = (req, res, next) => {
-  // req.query.edit - coming from the view => the name attribute of input tag
   const title = req.body.title;
   const imageUrl = req.body.imageUrl;
   const pages = req.body.pages;
@@ -15,7 +12,6 @@ exports.postAddBook = (req, res, next) => {
 
   const book = new Book(
     title,
-    //() => {}, // title for testing constructor
     pages,
     description,
     imageUrl,
@@ -26,7 +22,7 @@ exports.postAddBook = (req, res, next) => {
   book
     .save()
     .then(() => {
-      res.status(201).json({ book });
+      res.status(201).header("Access-Control-Allow-Origin", "*").json({ book });
     })
     .catch((err) => console.log(err));
 }; // end postAddBook
@@ -34,7 +30,7 @@ exports.postAddBook = (req, res, next) => {
 exports.getEditBook = (req, res) => {
   const bookId = req.params.bookId;
   Book.findById(bookId)
-    .then((book) => res.json({ book }))
+    .then((book) => res.status(200).header("Access-Control-Allow-Origin", "*").json({ book }))
     .catch((err) => console.log(err));
 };
 
@@ -57,7 +53,7 @@ exports.postEditBook = (req, res) => {
   book
     .save()
     .then(() => {
-      res.status(200).json({bookId})
+      res.status(201).header("Access-Control-Allow-Origin", "*").json({book})
     })
     .catch((err) => console.log(err));
 };
@@ -65,7 +61,7 @@ exports.postEditBook = (req, res) => {
 exports.getBooks = (req, res) => {
   Book.fetchAll()
     .then((books) => {
-      res.status(200).json({ books });
+      res.status(200).header("Access-Control-Allow-Origin", "*").json({ books });
     })
     .catch((err) => console.log(err));
 };
@@ -74,7 +70,7 @@ exports.postDeleteBook = (req, res) => {
   const bookId = req.body.bookId;
   Book.deleteById(bookId)
     .then(() => {
-      res.status(201).json({bookId});
+      res.status(201).header("Access-Control-Allow-Origin", "*").json({bookId});
     })
     .catch((err) => console.log(err));
 };
