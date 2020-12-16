@@ -3,7 +3,7 @@ const Book = require("../models/book");
 exports.getBooks = (req, res) => {
   Book.fetchAll()
     .then((books) => {
-      res.status(200).json({ books });
+      res.status(200).header("Access-Control-Allow-Origin", "*").json({ books });
     })
     .catch((err) => console.log(err));
 };
