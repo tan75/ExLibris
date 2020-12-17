@@ -7,11 +7,14 @@ const bodyParser = require("body-parser");
 const flash = require("connect-flash");
 const session = require("express-session");
 const morgan = require("morgan");
+var cors = require('cors');
 
 const mongoConnect = require("./util/database").mongoConnect;
 const User = require("./models/user");
 
 const app = express();
+
+app.use(cors());
 
 app.set("view engine", "ejs");
 app.set("views", "views");
