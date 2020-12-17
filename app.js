@@ -12,6 +12,7 @@ const mongoConnect = require("./util/database").mongoConnect;
 const User = require("./models/user");
 
 const app = express();
+var cors = require('cors');
 
 app.set("view engine", "ejs");
 app.set("views", "views");
@@ -25,6 +26,8 @@ const accessLogStream = fs.createWriteStream(
   path.join(__dirname, "access.log"),
   { flags: "a" } // append
 );
+
+app.use(cors());
 app.use(morgan("combined", { stream: accessLogStream }));
 
 // Parses the url body and calls next()
