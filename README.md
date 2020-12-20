@@ -2,7 +2,9 @@
 
 ExLibris is a reading list app that allows you to log books you have read and track your reading progress.
 
-## Technologies used:
+The current app is deployed to Digital Ocaen and running on Nginx.
+
+## Stack
 
 Web App: html/CSS, JavaScript, NodeJS
 
