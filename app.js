@@ -55,9 +55,8 @@ app.use((req, res, next) => {
     });
 });
 
-//app.use(flash);
 app.use("/admin", adminRoutes);
-//app.use(flash);
+
 app.use(libraryRoutes);
 app.use(errorController.get404);
 
