@@ -55,7 +55,7 @@ app.use((req, res, next) => {
     });
 });
 
-app.use("/admin", adminRoutes);
+app.use("/api/admin", adminRoutes);
 
 app.use(libraryRoutes);
 app.use(errorController.get404);

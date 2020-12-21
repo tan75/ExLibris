@@ -6,15 +6,15 @@ const libraryController = require("../controllers/library");
 
 const errorController = require("../controllers/error");
 
-router.get("/", libraryController.getIndex);
+router.get("/api/", libraryController.getIndex);
 
-router.get("/books", libraryController.getBooks);
+router.get("/api/books", libraryController.getBooks);
 
-router.get("/books/:bookId", libraryController.getBook);
+router.get("/api/books/:bookId", libraryController.getBook);
 
-router.get("/report", libraryController.getReport);
+router.get("/api/report", libraryController.getReport);
 
-router.post("/report", libraryController.postReport);
+router.post("/api/report", libraryController.postReport);
 
 router.get("/500", errorController.getAppError);
 

@@ -39,6 +39,6 @@ exports.postReport = (req, res) => {
   Book.findById(bookId)
     .then((book) => {
       req.user.addToReport(book);
-      res.status(201).headr("Access-Control-Allow-Origin", "*").json({ book });
+      res.status(201).header("Access-Control-Allow-Origin", "*").json({ book });
     })
 };
