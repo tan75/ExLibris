@@ -2,7 +2,7 @@ name: github-actions
 
 on:
   push:
-    branches: [dev2]
+    branches: [dev1]
 jobs:
   install_dependancies_job:
     runs-on: ubuntu-latest
