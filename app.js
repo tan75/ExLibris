@@ -16,8 +16,8 @@ const app = express();
 
 app.use(cors());
 
-app.set("view engine", "ejs");
-app.set("views", "views");
+// app.set("view engine", "ejs");
+// app.set("views", "views");
 
 const adminRoutes = require("./routes/admin");
 const libraryRoutes = require("./routes/library");
