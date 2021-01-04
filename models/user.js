@@ -37,20 +37,15 @@ class User {
       return i.bookId;
     });
 
+    //TT Change the logic to return total pages only
     return db
-      .collection(booksCollectionName)
-      .find({ _id: { $in: bookIds } })
-      .toArray()
-      .then((books) => {
-        return books.map((b) => {
-          return {
-            ...b,
-            pages: this.report.books.find((i) => {
-              return i.bookId.toString() === b._id.toString();
-            }).pages,
-          };
-        });
-      });
+      .collection(userCollectionName)
+      .find({})
+      .next()
+      .then((user) => {
+        return user.report.totalPages;
+      })
+      .catch((err) => console.log(err));
   }
 
   addToReport(book) {
